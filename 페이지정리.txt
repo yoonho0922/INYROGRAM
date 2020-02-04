@@ -1,0 +1,10 @@
+<메인 5가지>
+홈 		activity_home.xml		Home.java
+검색 		activity_search.xml		Search.java
+글쓰기		activity_posting.xml		Posting.java
+알림(활동) 	activity_notification.xml	Notification.java
+내페이지	 	activity_my_page.xml	My_page.java
+
+<내정보관련>
+프로필 수정 	porifile_mod.xml	porfile_mod.xml
+팔로워/팔로잉 정보	my_follow.xml	my_follow.java	
