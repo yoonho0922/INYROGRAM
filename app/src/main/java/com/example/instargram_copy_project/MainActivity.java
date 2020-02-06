@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sunjung_main1);
+        setContentView(R.layout.sunjung_main2);
 
         final ToggleButton toggle1 = findViewById(R.id.toggleButton1);
         toggle1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
