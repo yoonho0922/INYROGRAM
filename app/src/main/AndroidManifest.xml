@@ -9,11 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyPage"></activity>
-        <activity android:name=".Notification" />
-        <activity android:name=".Posting" />
-        <activity android:name=".Search" />
-        <activity android:name=".Home" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MyPageActivity" />
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".PostingActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".HomeActivity"/>
     </application>
 
 </manifest>

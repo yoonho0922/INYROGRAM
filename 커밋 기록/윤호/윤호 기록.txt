@@ -1,0 +1,10 @@
+<커밋기록>
+1. 날짜쓰고 - 이름 쓰기
+2. :커밋제목(?)		git commit  -m "커밋제목"
+3. - 쓰고싶은 내용 쓰기
+
+2020.02.10
+:기본 틀 정리
+-첫화면 activityMain을 5가지 액티비티로 이동할 수 있게 버튼 생성
+-sunjung_main2.xml 등 을 HomeActivity, activity_home 으로 변경
+-my page 오류 부분 주석 처리
