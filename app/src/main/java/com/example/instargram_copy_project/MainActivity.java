@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     Button posting_btn;
     Button notification_btn;
     Button my_page_btn;
+    Button login_btn;
+    Button signup_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         posting_btn = findViewById(R.id.posting_btn);
         notification_btn = findViewById(R.id.notification_btn);
         my_page_btn = findViewById(R.id.my_page_btn);
+        login_btn = findViewById(R.id.login_btn);
+        signup_btn = findViewById(R.id.signup_btn);
 
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +62,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+                startActivity(intent);
+            }
+        });
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        signup_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
         });
