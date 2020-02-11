@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.instargram_copy_project">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <dist:module dist:instant="true" />
+
 
     <application
         android:allowBackup="true"
@@ -9,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".SignupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +25,8 @@
         <activity android:name=".PostingActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".HomeActivity"/>
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>
