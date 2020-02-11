@@ -10,6 +10,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -49,7 +51,6 @@
                 tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -165,7 +166,7 @@
             android:layout_height="384dp"
             >
 
-            <TableRow android:background="#000000" android:padding="2dp"
+            <TableRow android:background="#E3ECF0" android:padding="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="97dp">
 
@@ -173,6 +174,7 @@
                     android:id="@+id/imageView12"
                     android:layout_width="121dp"
                     android:layout_height="111dp"
+                    android:padding="1dp"
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/ddog4" />
 
@@ -181,6 +183,7 @@
                     android:layout_width="121dp"
                     android:layout_height="111dp"
                     android:scaleType="fitXY"
+                    android:padding="1dp"
                     app:srcCompat="@drawable/ddog3" />
 
                 <ImageView
@@ -188,10 +191,11 @@
                     android:layout_width="132dp"
                     android:layout_height="111dp"
                     android:scaleType="fitXY"
+                    android:padding="1dp"
                     app:srcCompat="@drawable/ddog1" />
             </TableRow>
 
-            <TableRow android:background="#000000" android:padding="2dp"
+            <TableRow android:background="#E3ECF0" android:padding="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
@@ -200,6 +204,7 @@
                     android:layout_width="132dp"
                     android:layout_height="111dp"
                     android:scaleType="fitXY"
+                    android:padding="1dp"
                     app:srcCompat="@drawable/mypage2" />
 
                 <ImageView
@@ -207,6 +212,7 @@
                     android:layout_width="132dp"
                     android:layout_height="111dp"
                     android:scaleType="fitXY"
+                    android:padding="1dp"
                     app:srcCompat="@drawable/mypage1" />
 
                 <ImageView
@@ -214,10 +220,11 @@
                     android:layout_width="132dp"
                     android:layout_height="111dp"
                     android:scaleType="fitXY"
+                    android:padding="1dp"
                     app:srcCompat="@drawable/ddog2" />
             </TableRow>
 
-            <TableRow android:background="#000000" android:padding="2dp"
+            <TableRow android:background="#E3ECF0" android:padding="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
@@ -227,6 +234,7 @@
                     android:layout_width="132dp"
                     android:layout_height="111dp"
                     android:scaleType="fitXY"
+                    android:padding="1dp"
                     app:srcCompat="@drawable/mypage5" />
 
                 <ImageView
@@ -234,6 +242,7 @@
                     android:layout_width="132dp"
                     android:layout_height="111dp"
                     android:scaleType="fitXY"
+                    android:padding="1dp"
                     app:srcCompat="@drawable/mypage4" />
 
                 <ImageView
@@ -241,12 +250,10 @@
                     android:layout_width="132dp"
                     android:layout_height="111dp"
                     android:scaleType="fitXY"
+                    android:padding="1dp"
                     app:srcCompat="@drawable/mypage3" />
             </TableRow>
 
-            <TableRow
-                android:layout_width="132dp"
-                android:layout_height="111dp" />
         </TableLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -364,6 +371,5 @@
                 app:layout_constraintVertical_bias="0.444" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </LinearLayout>
 </ScrollView>
