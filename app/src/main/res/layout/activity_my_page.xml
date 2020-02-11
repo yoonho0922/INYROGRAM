@@ -42,6 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -165,20 +166,23 @@
 
             <ImageView
                 android:id="@+id/imageView12"
-                android:layout_width="145dp"
+                android:layout_width="112dp"
                 android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/ddog4" />
 
             <ImageView
                 android:id="@+id/imageView11"
-                android:layout_width="117dp"
-                android:layout_height="155dp"
+                android:layout_width="111dp"
+                android:layout_height="98dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/ddog3" />
 
             <ImageView
                 android:id="@+id/imageView9"
-                android:layout_width="153dp"
-                android:layout_height="140dp"
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/ddog1" />
         </TableRow>
 
@@ -187,15 +191,52 @@
             android:layout_height="match_parent" >
 
             <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/mypage2" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="95dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/mypage1" />
+
+            <ImageView
                 android:id="@+id/imageView14"
                 android:layout_width="118dp"
                 android:layout_height="134dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/ddog2" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="78dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/mypage5" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="53dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/mypage4" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="168dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/mypage3" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
