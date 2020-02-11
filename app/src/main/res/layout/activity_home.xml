@@ -54,17 +54,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/dmbutton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <ScrollView
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_weight="1"-->
+<!--        android:layout_height="wrap_content">-->
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="wrap_content">
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id = "@+id/main_listview"
-            />
+        android:layout_height="595dp" />
 
-    </ScrollView>
+<!--    </ScrollView>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
