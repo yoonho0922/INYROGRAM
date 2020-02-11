@@ -1,99 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@drawable/border_layout_under"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="@drawable/border_layout_under">
+        app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
+        <ToggleButton
+            android:id="@+id/toggleButton7"
+            android:layout_width="39dp"
+            android:layout_height="37dp"
+            android:background="@drawable/menubtn"
+            android:textOff=""
+            android:textOn=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintHorizontal_bias="0.956"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/camerabutton" />
+            app:layout_constraintVertical_bias="0.538" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="100dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="109dp"
+            android:layout_height="24dp"
+            android:text="unknown user"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.026"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/inyrogram_title" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.996"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dmbutton" />
+            tools:ignore="MissingConstraints" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <ScrollView
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="236dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.657"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.07" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.848"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.07" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="게시물"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.44"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.191" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="팔로워"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.669"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.191" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="팔로잉"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.87"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.184" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="99dp"
+            android:layout_height="91dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.099"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.296"
+            app:srcCompat="@drawable/unknownimg" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.441"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.063" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="348dp"
+            android:layout_height="40dp"
+            android:text="프로필 수정"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.801" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="384dp">
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="97dp">
 
-<!--            <de.hdodenhof.circleimageview.CircleImageView-->
-<!--                xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--                android:id="@+id/parofile_image"-->
-<!--                android:layout_width="150dp"-->
-<!--                android:layout_height="150dp"-->
-<!--                android:src="@drawable/heartonbutton"-->
-<!--                app:civ_border_width="2dp"-->
-<!--                app:civ_border_color="#FF000000"/>-->
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ddog4" />
 
-            <Button
-                android:text="게시물"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp">
-            </Button>
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="117dp"
+                android:layout_height="155dp"
+                app:srcCompat="@drawable/ddog3" />
 
-            <Button
-                android:text="팔로워"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp">
-            </Button>
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="153dp"
+                android:layout_height="140dp"
+                app:srcCompat="@drawable/ddog1" />
+        </TableRow>
 
-            <Button
-                android:text="팔로잉"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp">
-            </Button>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="118dp"
+                android:layout_height="134dp"
+                app:srcCompat="@drawable/ddog2" />
+        </TableRow>
 
-    </ScrollView>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
