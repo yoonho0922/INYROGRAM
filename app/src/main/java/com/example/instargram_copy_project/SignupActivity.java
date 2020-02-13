@@ -58,26 +58,39 @@ public class SignupActivity extends AppCompatActivity {
         String email = ((EditText) findViewById(R.id.idsignup)).getText().toString(); //email과 password를 입력한 값을 받아와 변수에 저장
         String password = ((EditText) findViewById(R.id.passwordsignup)).getText().toString();
         String re_password = ((EditText) findViewById(R.id.repasswordsignup)).getText().toString();
-        if (password.equals(re_password)) {
-            mAuth.createUserWithEmailAndPassword(email, password) //변수 email과 password의 저장된 값을 전송
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "createUserWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            }
+        if (email.contains("@") && email.contains(".")) {//아이디가 이메일 형식인지 확인
+            if (password.equals(re_password) ) {//비밀번호와 재비밀번호가 일치하는지 확인
+                if (Integer.parseInt(password) > 6) {// 비밀번호가 여섯자리 이상인지 확인
+                    mAuth.createUserWithEmailAndPassword(email, password) //변수 email과 password의 저장된 값을 전송
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d(TAG, "createUserWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                    }
 
-                            // ...
-                        }
-                    });
-            startToast("정상적으로 회원가입 되었습니다.");
-        } else {
-            startToast("비밀번호가 같지 않습니다.");
+                                    // ...
+                                }
+                            });
+                    startToast("정상적으로 회원가입 되었습니다.");
+                }
+                else {//비밀번호가 여섯자리 이상이 아닐때
+
+                    startToast("비밀번호는 여섯자리 이상으로 설정해주십시오");
+
+                }
+            }
+            else {//비밀번호와 재비밀번호가 다를 때
+                startToast("비밀번호가 같지 않습니다.");
+            }
+        }
+        else{
+            startToast("올바른 이메일 형식을 입력해주십시오");
         }
     }
 
@@ -90,4 +103,3 @@ public class SignupActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
