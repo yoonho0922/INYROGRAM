@@ -139,7 +139,7 @@
                     app:layout_constraintVertical_bias="0.063" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/profileEditBtn"
                     android:layout_width="348dp"
                     android:layout_height="40dp"
                     android:text="프로필 수정"
