@@ -16,10 +16,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
@@ -47,6 +51,10 @@ public class ProfileEditActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "MemberInfoSetting";
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference docRef = db.collection("Profile").document(user.getUid());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +70,8 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         finishBtn = (Button)findViewById(R.id.finishBtn);
         name = (EditText)findViewById(R.id.name);
+
+        getProfile();   //현재 정보 가져오기
 
         profileEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,14 +120,34 @@ public class ProfileEditActivity extends AppCompatActivity {
     }
 
 
+    public void getProfile(){ //현재 정보를 가져오는 함수
+
+        name = findViewById(R.id.name);
+        userName = findViewById(R.id.userName);
+        website = findViewById(R.id.website);
+        intro = findViewById(R.id.intro);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                name.setText(document.getString("name"));//필드의 값을 가져와서 set
+                userName.setText(document.getString("userName"));
+                website.setText(document.getString("website"));
+                intro.setText(document.getString("intro"));
+            }
+        });
+    }
+
     public void proFile(){ //입력한 프로필 저장하는 함수
         String name = ((EditText) findViewById(R.id.name)).getText().toString();
         String userName = ((EditText) findViewById(R.id.userName)).getText().toString();//정보를 가지고옴
         String website = ((EditText) findViewById(R.id.website)).getText().toString();
         String intro = ((EditText) findViewById(R.id.intro)).getText().toString();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //db 객체 생성하는거 전연변수로 처리해서 주석처리했습니다
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, String> profile = new HashMap<>();
         profile.put("name", name);
