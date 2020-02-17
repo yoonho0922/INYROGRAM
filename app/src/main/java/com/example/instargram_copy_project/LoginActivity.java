@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.login_button2).setOnClickListener(onClickListener);
         findViewById(R.id.resister_button).setOnClickListener(onClickListener);
+        findViewById(R.id.logout_button).setOnClickListener(onClickListener);
     }
     @Override
     public void onStart() {
@@ -44,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
                 case R.id.resister_button:
                     startSignUpActivity();
                     break;
+                case R.id.logout_button:
+                    SignOut();
             }
         }
     };
@@ -80,6 +84,14 @@ public class LoginActivity extends AppCompatActivity {
     private void startSignUpActivity(){
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
+    }
+    private void SignOut() {
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            FirebaseAuth.getInstance().signOut();
+            startToast("로그아웃 했습니다.");
+            Intent intent= new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
     }
     private void startMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
