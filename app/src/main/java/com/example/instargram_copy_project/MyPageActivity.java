@@ -20,8 +20,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MyPageActivity extends AppCompatActivity {
 
-
+    Button toggleButton1;
+    Button toggleButton2;
+    Button toggleButton3;
     Button toggleButton4;
+
     Button profileEditBtn;
     TextView name_profile;
 
@@ -36,20 +39,9 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
 
-
-        toggleButton4 = findViewById(R.id.toggleButton4);
-        profileEditBtn = findViewById(R.id.profileEditBtn);
+        navbar();
 
 
-        toggleButton4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyPageActivity.this , NotificationActivity.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-
-            }
-        });
         profileEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +63,52 @@ public class MyPageActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot document = task.getResult();
                 name_profile.setText(document.getString("userName"));//필드 userName의 값을 가져와서 set
+
+            }
+        });
+    }
+
+    public void navbar(){
+        toggleButton1 = findViewById(R.id.toggleButton1);
+        toggleButton2 = findViewById(R.id.toggleButton2);
+        toggleButton3 = findViewById(R.id.toggleButton3);
+        toggleButton4 = findViewById(R.id.toggleButton4);
+        profileEditBtn = findViewById(R.id.profileEditBtn);
+
+
+        toggleButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyPageActivity.this , HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        toggleButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyPageActivity.this , SearchActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        toggleButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyPageActivity.this , PostingActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        toggleButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyPageActivity.this , NotificationActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
 
             }
         });

@@ -2,7 +2,10 @@ package com.example.instargram_copy_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -12,6 +15,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HomeActivity extends AppCompatActivity {
+
+    Button toggleButton2;
+    Button toggleButton3;
+    Button toggleButton4;
+    Button toggleButton5;
 
     //// 사용자 정보 (프로필사진, ID, 장소, 내용) ////
     ListView listView;
@@ -30,6 +38,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        navbar();
 
         //// 리스트뷰 안에 내용 - 배열에 정보 넣기 ////
         int i = 0;
@@ -127,5 +137,50 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void navbar(){
+        toggleButton2 = findViewById(R.id.toggleButton2);
+        toggleButton3 = findViewById(R.id.toggleButton3);
+        toggleButton4 = findViewById(R.id.toggleButton4);
+        toggleButton5 = findViewById(R.id.toggleButton5);
+
+
+        toggleButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this , SearchActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        toggleButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this , PostingActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        toggleButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this , NotificationActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        toggleButton5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this , MyPageActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+        });
     }
 }

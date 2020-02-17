@@ -83,7 +83,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/searchbutton"
+            android:background="@drawable/searchonbutton"
             android:text="ToggleButton"
             android:textOff=""
             android:textOn=""

@@ -87,7 +87,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/homebutton"
+            android:background="@drawable/homeonbutton"
             android:text="ToggleButton"
             android:textOff=""
             android:textOn=""
