@@ -44,7 +44,7 @@ public class SignupActivity extends AppCompatActivity {
         public void onClick(View v) { //클릭된 위젯의 id를 이용
             switch (v.getId()) {
                 case R.id.signup_button:
-                    Intent intent_profile = new Intent(SignupActivity.this, ProfileEditActivity.class);
+                    Intent intent_profile = new Intent(SignupActivity.this, InitProfileEditActivity.class);
                     signUp(); // 회원가입 함수 실행
                     startActivity(intent_profile); // 회원가입 수행 후 프로필 받으러 감
                     break;

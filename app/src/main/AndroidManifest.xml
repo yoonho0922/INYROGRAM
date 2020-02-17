@@ -14,23 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileEditActivity"></activity>
+        <activity android:name=".InitProfileEditActivity"></activity>
+        <activity android:name=".ProfileEditActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".MyPageActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".PostingActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".HomeActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".MainActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
