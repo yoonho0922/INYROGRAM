@@ -62,6 +62,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         finishBtn = (Button)findViewById(R.id.finishBtn);
         name = (EditText)findViewById(R.id.name);
+
         profileEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,13 +115,17 @@ public class ProfileEditActivity extends AppCompatActivity {
         String userName = ((EditText) findViewById(R.id.userName)).getText().toString();//정보를 가지고옴
         String website = ((EditText) findViewById(R.id.website)).getText().toString();
         String intro = ((EditText) findViewById(R.id.intro)).getText().toString();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         Map<String, String> profile = new HashMap<>();
         profile.put("name", name);
         profile.put("userName", userName);
         profile.put("website", website);
         profile.put("intro", intro);
+
+
         db.collection("Profile").document(user.getUid()).set(profile, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
