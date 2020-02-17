@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button my_page_btn;
     Button login_btn;
     Button signup_btn;
+    TextView textView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         my_page_btn = findViewById(R.id.my_page_btn);
         login_btn = findViewById(R.id.login_btn);
         signup_btn = findViewById(R.id.signup_btn);
+        textView1 = findViewById(R.id.textView1);
 
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            textView1.setText(user.getUid());
+        } else {
+            textView1.setText("로그인 아직 안함");
+        }
 
     }
 
