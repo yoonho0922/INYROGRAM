@@ -45,11 +45,14 @@ public class SearchActivity1 extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchshow(search_edit.getText().toString());
+                String msg = search_edit.getText().toString();
+                searchshow(msg);
+                items.clear();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
 
             }
         });
@@ -59,7 +62,7 @@ public class SearchActivity1 extends AppCompatActivity {
     private void startToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-    private void searchshow(String msg){
+    private void searchshow(final String msg){
         mAuth = FirebaseAuth.getInstance();
         mListView = (ListView) findViewById(R.id.listView);
         items = new ArrayList<String>();
@@ -72,17 +75,17 @@ public class SearchActivity1 extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Map mapname = new HashMap<String, Object>();
-                                Map mapid = new HashMap<String, Object>();
-                                startToast(search_edit.getText().toString());
+                                Map mapName = new HashMap<String, Object>();
+                                Map mapId = new HashMap<String, Object>();
+                                startToast(msg);
                                 String name = document.get("userName").toString();
-                                if((name.contains(search_edit.getText().toString()))==false) {
+                                if(!(name.contains(msg))) {
                                     continue;
                                 }
                                 else {
-                                    mapname.put("name", name);
-                                    mapid.put("id", document.getId());
-                                    items.add(mapname.get("name").toString() + "\n" + mapid.get("id"));
+                                    mapName.put("name", name);
+                                    mapId.put("id", document.getId());
+                                    items.add(mapName.get("name") + "\n" + mapId.get("id"));
                                     Log.d(TAG, document.getId() + " => " + document.getData());
                                 }
                             }
@@ -92,10 +95,7 @@ public class SearchActivity1 extends AppCompatActivity {
                         adapter = new ArrayAdapter<String>(SearchActivity1.this,
                                 android.R.layout.simple_list_item_single_choice, items);
                         mListView.setAdapter(adapter);
-
                     }
                 });
     }
 }
-
-
