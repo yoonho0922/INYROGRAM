@@ -1,8 +1,11 @@
 package com.example.instargram_copy_project;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,11 +31,35 @@ public class SearchActivity1 extends AppCompatActivity {
     private ListView mListView;
     ArrayList<String> items;
     ArrayAdapter<String> adapter;
+    EditText search_edit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        search_edit = findViewById(R.id.search_edit);
+        search_edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchshow(search_edit.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+    }
+
+    private void startToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+    private void searchshow(String msg){
         mAuth = FirebaseAuth.getInstance();
         mListView = (ListView) findViewById(R.id.listView);
         items = new ArrayList<String>();
@@ -47,10 +74,17 @@ public class SearchActivity1 extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map mapname = new HashMap<String, Object>();
                                 Map mapid = new HashMap<String, Object>();
-                                mapname.put("name",document.get("userName"));
-                                mapid.put("id",document.getId());
-                                items.add(mapname.get("name").toString()+"\n"+mapid.get("id"));
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                startToast(search_edit.getText().toString());
+                                String name = document.get("userName").toString();
+                                if((name.contains(search_edit.getText().toString()))==false) {
+                                    continue;
+                                }
+                                else {
+                                    mapname.put("name", name);
+                                    mapid.put("id", document.getId());
+                                    items.add(mapname.get("name").toString() + "\n" + mapid.get("id"));
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                }
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -58,11 +92,9 @@ public class SearchActivity1 extends AppCompatActivity {
                         adapter = new ArrayAdapter<String>(SearchActivity1.this,
                                 android.R.layout.simple_list_item_single_choice, items);
                         mListView.setAdapter(adapter);
+
                     }
                 });
-    }
-    private void startToast(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }
 
