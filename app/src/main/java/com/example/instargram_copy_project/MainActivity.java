@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button signup_btn;
     Button posting_text_btn;
     TextView textView1;
+    Button glide_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         signup_btn = findViewById(R.id.signup_btn);
         posting_text_btn = findViewById(R.id.posting_text_btn);
         textView1 = findViewById(R.id.textView1);
+        glide_btn = findViewById(R.id.glide_btn);
 
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +110,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             textView1.setText("로그인 아직 안함");
         }
+        glide_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GlideActivity.class);
+                intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+            }
+        });
 
     }
 

@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity"
+        <activity android:name=".GlideActivity"></activity>
+        <activity
+            android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,14 +30,13 @@
         <activity android:name=".MyPageActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".PostingActivity" />
-        <activity android:name=".PostingTextActivity"/>
+        <activity android:name=".PostingTextActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".FriendPageActivity"/>
-        <activity android:name=".SearchActivity1"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".FriendPageActivity" />
+        <activity android:name=".SearchActivity1" />
     </application>
 
 </manifest>
