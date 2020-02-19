@@ -35,6 +35,7 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(NotificationActivity.this , HomeActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -44,6 +45,7 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(NotificationActivity.this , SearchActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -53,6 +55,7 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(NotificationActivity.this , PostingActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -62,6 +65,7 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(NotificationActivity.this , MyPageActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }

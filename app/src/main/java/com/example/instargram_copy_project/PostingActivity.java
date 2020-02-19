@@ -187,7 +187,7 @@ public class PostingActivity extends AppCompatActivity {
         Intent intent = new Intent(PostingActivity.this, HomeActivity.class);
         intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-
+        finish();
     }
 
     private void startToast(String msg){

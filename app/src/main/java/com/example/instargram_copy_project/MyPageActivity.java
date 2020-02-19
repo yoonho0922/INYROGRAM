@@ -121,6 +121,7 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyPageActivity.this , HomeActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -130,6 +131,7 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyPageActivity.this , SearchActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -139,6 +141,7 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyPageActivity.this , PostingActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -148,6 +151,7 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyPageActivity.this , NotificationActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }

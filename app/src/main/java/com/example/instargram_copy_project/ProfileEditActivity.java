@@ -66,11 +66,6 @@ public class ProfileEditActivity extends AppCompatActivity {
 
 
         name = findViewById(R.id.name);
-        userName = findViewById(R.id.userName);
-        website = findViewById(R.id.website);
-        intro = findViewById(R.id.intro);
-        imageView = findViewById(R.id.imageView);
-
         finishBtn = findViewById(R.id.finishBtn);
         profileEditBtn = findViewById(R.id.profileEditBtn);
         cancelBtn = findViewById(R.id.cancelBtn);
@@ -87,6 +82,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
+                uploadFile();
             }
         });
 
@@ -98,11 +94,7 @@ public class ProfileEditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),MyPageActivity.class);
                 intent.putExtra(" ", name.getText().toString());
-                intent.putExtra(" ", userName.getText().toString());
-                intent.putExtra(" ", intro.getText().toString());
-                intent.putExtra(" ", website.getText().toString());
                 proFile();
-                uploadFile();
                 finish();
                 overridePendingTransition(R.anim.stay, R.anim.sliding_down);
 
@@ -196,8 +188,6 @@ public class ProfileEditActivity extends AppCompatActivity {
 
     }
     private void uploadFile() {
-        //업로드할 파일이 있으면 수행
-        //업로드할 파일이 있으면 수행
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
             //업로드 진행 Dialog 보이기
