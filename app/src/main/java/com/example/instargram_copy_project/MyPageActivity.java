@@ -27,6 +27,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     Button profileEditBtn;
     TextView name_profile;
+    TextView user_name;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -56,8 +57,7 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
     public void getUserName(){    //현재 userName 가지고오는 함수
-        name_profile = (TextView)findViewById(R.id.name_profile);
-
+        name_profile = findViewById(R.id.name_profile);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

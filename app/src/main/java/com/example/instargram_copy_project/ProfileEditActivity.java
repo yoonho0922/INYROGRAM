@@ -43,6 +43,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     EditText website;
     EditText intro;
     Button finishBtn;
+    Button cancelBtn;
     Button profileEditBtn;
     ImageView imageView;
     private ImageView ivPreview;
@@ -67,9 +68,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         finishBtn = findViewById(R.id.finishBtn);
         profileEditBtn = findViewById(R.id.profileEditBtn);
+        cancelBtn = findViewById(R.id.cancelBtn);
 
-        finishBtn = (Button)findViewById(R.id.finishBtn);
-        name = (EditText)findViewById(R.id.name);
 
         getProfile();   //현재 정보 가져오기
 
@@ -95,7 +95,20 @@ public class ProfileEditActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),MyPageActivity.class);
                 intent.putExtra(" ", name.getText().toString());
                 proFile();
-                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.stay, R.anim.sliding_down);
+
+
+
+
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.stay, R.anim.sliding_down);
 
 
 
