@@ -56,11 +56,10 @@ public class FriendPageActivity  extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                ArrayList friendList = new ArrayList<String>();
-                friendList.add(friendUserId);
-                Map<String, ArrayList> friend = new HashMap<>();
-                friend.put("friend",friendList);
-                db.collection("Following").document(user.getUid()).set(friend, SetOptions.merge())
+                Map<String, String> friend_profile = new HashMap<>();
+                friend_profile.put("user_name", user_name.toString());
+                db.collection("Following").document(user.getUid()).collection("friends")
+                        .document(friendUserId).set(friend_profile, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
