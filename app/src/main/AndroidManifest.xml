@@ -28,6 +28,7 @@
         <activity android:name=".MyPageActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".PostingActivity" />
+        <activity android:name=".PostingTextActivity"/>
         <activity android:name=".SearchActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
