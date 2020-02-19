@@ -3,6 +3,7 @@ package com.example.instargram_copy_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -61,20 +62,14 @@ public class PostingTextActivity extends AppCompatActivity {
         post.put("imgUid",imgUid);
         post.put("content", content);
 
+        db.collection("Post").document().set(post, SetOptions.merge()); //DB 업로드
+        startToast("업로드 성공!");
 
-        db.collection("cities").add(post)      //DB에 post 업로드
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {    //업로드 성공시
-                startToast("업로드 성공!");
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {     //업로드 실패시
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        startToast("업로드 실패!");
-                    }
-                });
+        //홈 화면으로 이동
+        Intent intent = new Intent(PostingTextActivity.this, HomeActivity.class);
+        intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+
     }
 
     private void startToast(String msg){
