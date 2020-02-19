@@ -69,6 +69,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         website = findViewById(R.id.website);
         intro = findViewById(R.id.intro);
+        imageView = findViewById(R.id.imageView);
 
         finishBtn = findViewById(R.id.finishBtn);
         profileEditBtn = findViewById(R.id.profileEditBtn);
@@ -86,7 +87,6 @@ public class ProfileEditActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
-                uploadFile();
             }
         });
 
@@ -102,6 +102,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 intent.putExtra(" ", intro.getText().toString());
                 intent.putExtra(" ", website.getText().toString());
                 proFile();
+                uploadFile();
                 finish();
                 overridePendingTransition(R.anim.stay, R.anim.sliding_down);
 
