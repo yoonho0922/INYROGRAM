@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="새 게시물"
-            android:layout_gravity="center"
+            android:gravity="center_vertical"
             android:layout_marginLeft="40dp"
             android:textSize="25dp"
             />
@@ -41,10 +41,86 @@
             android:text="공유" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/content"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="문구 입력..." />
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_preview"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/yoodang" />
+
+
+        <EditText
+            android:id="@+id/place"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:textSize="15dp"
+            android:hint="위치 입력..." />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="top"
+            android:layout_marginHorizontal="15dp"
+            android:hint="문구 입력..."
+            android:textSize="15dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/gallery_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="15dp"
+                android:layout_weight="1"
+                android:text="갤러리" />
+
+            <Button
+                android:id="@+id/camera_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="15dp"
+                android:layout_weight="1"
+                android:text="카메라" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/yoodang" />
+
+    </LinearLayout>
 
 </LinearLayout>

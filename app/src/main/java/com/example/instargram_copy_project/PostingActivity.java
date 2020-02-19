@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,49 +36,65 @@ import java.util.Map;
 
 public class PostingActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MemberInfoSetting";
 
-    private Button btChoose;
-    private Button btUpload;
-    private ImageView ivPreview;
+    EditText place;
+    EditText content;
+    Button gallery_btn;
+    Button camera_btn;
+    Button posting_btn;
+    ImageView img_preview;
+    ImageView img_view;
 
     private Uri filePath;
-    private FirebaseAuth mAuth;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference docRef = db.collection("Profile").document(user.getUid());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_posting);
+        setContentView(R.layout.activity_posting_text);
 
-        btChoose = (Button) findViewById(R.id.bt_choose);
-        btUpload = (Button) findViewById(R.id.bt_upload);
-        ivPreview = (ImageView) findViewById(R.id.iv_preview);
-        mAuth = FirebaseAuth.getInstance();
+        gallery_btn = findViewById(R.id.gallery_btn);
+        camera_btn = findViewById(R.id.camera_btn);
+        posting_btn = findViewById(R.id.posting_btn);
+        img_preview = findViewById(R.id.img_preview);
+        img_view = findViewById(R.id.img_view);
 
-        //버튼 클릭 이벤트
-        btChoose.setOnClickListener(new View.OnClickListener() {
+        gallery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //이미지를 선택
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                FirebaseUser currentUser = mAuth.getCurrentUser();
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
             }
         });
 
-        btUpload.setOnClickListener(new View.OnClickListener() {
+        camera_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //업로드
-                uploadFile();
+                startToast("카메라 버튼");
             }
         });
 
+        posting_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String fileName = uploadFile();
+                if(fileName != null) {
+                    posting(fileName);
+                }
+            }
+        });
+
+
     }
 
-    //결과 처리
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -87,15 +105,15 @@ public class PostingActivity extends AppCompatActivity {
             try {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                ivPreview.setImageBitmap(bitmap);
+                img_preview.setImageBitmap(bitmap);
+                img_view.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    //upload the file
-    private void uploadFile() {
+    public String uploadFile() {
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
             //업로드 진행 Dialog 보이기
@@ -104,22 +122,13 @@ public class PostingActivity extends AppCompatActivity {
             progressDialog.show();
 
             //storage
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             //Unique한 파일명을 만들자.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
             Date now = new Date();
             String filename = formatter.format(now) + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child("images/" + filename);
-            Map<String, Object> data = new HashMap<>();
-            data.put("image", filename);
-
-            db.collection("Users").document(user.getUid()) //userid에 데이터저장
-                    .set(data, SetOptions.merge());
-            db.collection("Image").document("category").set(data, SetOptions.merge());
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child("post_img/" + filename);
 
             //올라가거라...
             storageRef.putFile(filePath)
@@ -128,7 +137,7 @@ public class PostingActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                            Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
+                            startToast("파일 업로드 완료!");
                         }
                     })
                     //실패시
@@ -136,7 +145,7 @@ public class PostingActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
+                            startToast("파일 업로드 실패!");
                         }
                     })
                     //진행중
@@ -149,9 +158,40 @@ public class PostingActivity extends AppCompatActivity {
                             progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
                         }
                     });
+            return "post_img/" + filename;
         } else {
-            Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+            startToast("파일을 선택해주세요!");
+            return null;
         }
+    }
+
+
+
+    public void posting(String fileName){
+        String userUid = user.getUid(); //유저 UID 가져오기
+        String place = ((EditText) findViewById(R.id.place)).getText().toString();
+        String content = ((EditText) findViewById(R.id.content)).getText().toString();  //문구
+//        Integer likeCount = 0;  //좋아요 수
+
+        Map<String, String> post = new HashMap<>();
+        post.put("userUid", userUid);
+        post.put("fileName", fileName);
+        post.put("place",place);
+        post.put("content", content);
+
+        DocumentReference postDoc = db.collection("Post").document();
+        postDoc.set(post, SetOptions.merge());      //DB 업로드
+        startToast(postDoc.toString() + "업로드 성공!");
+
+        //홈 화면으로 이동
+        Intent intent = new Intent(PostingActivity.this, HomeActivity.class);
+        intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+
+    }
+
+    private void startToast(String msg){
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 }
 
