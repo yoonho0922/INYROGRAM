@@ -1,9 +1,12 @@
 package com.example.instargram_copy_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -38,6 +41,7 @@ public class SearchActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         search_edit = findViewById(R.id.search_edit);
+        mListView = findViewById(R.id.listView);
         search_edit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -45,17 +49,30 @@ public class SearchActivity1 extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String msg = search_edit.getText().toString();
-                searchshow(msg);
-                items.clear();
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
+                String msg = search_edit.getText().toString();
+                searchshow(msg);
+                items.clear();
+            }
+        });
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String Friend_info = (String) parent.getItemAtPosition(position);
+                startToast(Friend_info);
+                Intent oIntent = new Intent(SearchActivity1.this, FriendPageActivity.class);
+                oIntent.putExtra("Friend",Friend_info);
+                startActivity(oIntent);
 
             }
         });
+
+
 
     }
 
@@ -97,5 +114,9 @@ public class SearchActivity1 extends AppCompatActivity {
                         mListView.setAdapter(adapter);
                     }
                 });
+
     }
+
+
+
 }

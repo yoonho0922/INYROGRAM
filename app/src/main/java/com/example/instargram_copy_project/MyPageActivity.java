@@ -28,6 +28,8 @@ public class MyPageActivity extends AppCompatActivity {
     Button profileEditBtn;
     TextView name_profile;
     TextView user_name;
+    TextView web_profile;
+    TextView intro_profile;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -52,21 +54,59 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
+        getName();
         getUserName();
+        getWebsiteName();
+        getIntroName();
+
 
     }
 
-    public void getUserName(){    //현재 userName 가지고오는 함수
+    public void getName(){    //현재 name 가지고오는 함수
         name_profile = findViewById(R.id.name_profile);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot document = task.getResult();
-                name_profile.setText(document.getString("userName"));//필드 userName의 값을 가져와서 set
+                name_profile.setText(document.getString("name"));//필드 userName의 값을 가져와서 set
 
             }
         });
     }
+    public void getIntroName(){    //현재 intro 가지고오는 함수
+        intro_profile = findViewById(R.id.intro_profile);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                intro_profile.setText(document.getString("intro"));//필드 userName의 값을 가져와서 set
+
+            }
+        });
+    }
+    public void getWebsiteName(){    //현재 website 가지고오는 함수
+        web_profile = findViewById(R.id.web_profile);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                web_profile.setText(document.getString("website"));//필드 userName의 값을 가져와서 set
+
+            }
+        });
+    }
+    public void getUserName(){    //현재 userName 가지고오는 함수
+        user_name = findViewById(R.id.user_name);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                user_name.setText(document.getString("userName"));//필드 userName의 값을 가져와서 set
+
+            }
+        });
+    }
+
 
     public void navbar(){
         toggleButton1 = findViewById(R.id.toggleButton1);
