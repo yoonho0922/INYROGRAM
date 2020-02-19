@@ -35,16 +35,16 @@
 
 
         <Button
+            android:id="@+id/posting_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="공유"
-            />
+            android:text="공유" />
     </LinearLayout>
 
     <EditText
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="문구 입력..."
-        />
+        android:hint="문구 입력..." />
 
 </LinearLayout>
