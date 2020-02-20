@@ -17,32 +17,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SearchActivity1 extends AppCompatActivity {
-    private FirebaseAuth mAuth;
     private static final String TAG = "MemberInfoSetting";
-    private ListView mListView;
+    ListView mListView;
     ArrayList<String> items;
     ArrayAdapter<String> adapter;
-    EditText search_edit;
+    EditText msearch_edit;
+    String msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        search_edit = findViewById(R.id.search_edit);
+        msearch_edit = findViewById(R.id.search_edit);
         mListView = findViewById(R.id.listView);
-        search_edit.addTextChangedListener(new TextWatcher() {
+        msearch_edit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -54,8 +52,7 @@ public class SearchActivity1 extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
-                String msg = search_edit.getText().toString();
+                msg = msearch_edit.getText().toString();
                 searchshow(msg);
                 items.clear();
             }
@@ -79,11 +76,10 @@ public class SearchActivity1 extends AppCompatActivity {
     private void startToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-    private void searchshow(final String msg){
-        mAuth = FirebaseAuth.getInstance();
-        mListView = (ListView) findViewById(R.id.listView);
-        items = new ArrayList<String>();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
+    private void searchshow(final String s) {
+        mListView = findViewById(R.id.listView);
+        items = new ArrayList<>();
+        startToast(s);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Profile")
                 .get()
@@ -92,31 +88,25 @@ public class SearchActivity1 extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Map mapName = new HashMap<String, Object>();
-                                Map mapId = new HashMap<String, Object>();
-                                startToast(msg);
-                                String name = document.get("userName").toString();
-                                if(!(name.contains(msg))) {
-                                    continue;
-                                }
-                                else {
-                                    mapName.put("name", name);
+                                Map<String, Object> mapName = new HashMap<String, Object>();
+                                Map<String, Object> mapId = new HashMap<String, Object>();
+                                String username = document.getString("userName");
+
+                                //if(username.contains(s)){
+                                    mapName.put("name", username);
                                     mapId.put("id", document.getId());
                                     items.add(mapName.get("name") + "\n" + mapId.get("id"));
                                     Log.d(TAG, document.getId() + " => " + document.getData());
-                                }
+                               // }
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                        adapter = new ArrayAdapter<String>(SearchActivity1.this,
+                        adapter = new ArrayAdapter<>(SearchActivity1.this,
                                 android.R.layout.simple_list_item_single_choice, items);
                         mListView.setAdapter(adapter);
                     }
                 });
-
     }
-
-
 
 }
