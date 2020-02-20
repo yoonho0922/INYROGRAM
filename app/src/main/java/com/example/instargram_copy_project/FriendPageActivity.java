@@ -56,14 +56,15 @@ public class FriendPageActivity  extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                Map<String, String> friend_profile = new HashMap<>();
-                friend_profile.put("user_name", user_name.toString());
+                Map<String, Integer> friend_profile = new HashMap<>();
+                friend_profile.put("followset",1);
                 db.collection("Following").document(user.getUid()).collection("friends")
                         .document(friendUserId).set(friend_profile, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 startToast("회원정보 저장 완료");
+                                aramfollowing(friendUserId);
                                 //회원정보가 설정되어있음을 확인
 
                             }
@@ -99,6 +100,14 @@ public class FriendPageActivity  extends AppCompatActivity {
                 name_profile.setText(document.getString("name"));
             }
         });
+    }
+    public void aramfollowing(String friendUserId){//팔로잉한 상대 친구에게 알람 가도록 설정
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Integer> friend_profile = new HashMap<>();
+        friend_profile.put("followset",1);
+        db.collection("Aram").document(friendUserId).collection("friends")
+                .document(user.getUid()).set(friend_profile, SetOptions.merge());
     }
 
 
