@@ -3,199 +3,104 @@ package com.example.instargram_copy_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PostingTextActivity extends AppCompatActivity {
 
     private static final String TAG = "MemberInfoSetting";
+    List items;
+    String msg;
 
-    EditText place;
-    EditText content;
-    Button gallery_btn;
-    Button camera_btn;
-    Button posting_btn;
-    ImageView img_preview;
-    ImageView img_view;
+    Button get_db_btn;
+    TextView db_text_view;
 
-    private Uri filePath;
+    //// 사용자 정보 (프로필사진, ID, 장소, 내용) ////
+    ListView listView;
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    DocumentReference docRef = db.collection("Profile").document(user.getUid());
+    int[] user_img = new int[]{R.drawable.dog1, R.drawable.dog2, R.drawable.dog3}; // 프로필 사진
+    String[] user_id = new String[]{"lim_jaeyoung0428", "yoon_nno", "sje__22"}; // 사용자 ID
+    String[] user_place = new String[]{"Sadang Station", "Seoul City Hall", "Itaewon"}; // 장소
+    int[] posting_picture = new int[]{R.drawable.postingex1, R.drawable.postingex2, R.drawable.postingex3}; // 포스팅 사진
+    String[] user_posting = new String[]{"Have a nice day :)", "Hello World!", "고기 먹고 싶다 하아아아아"}; // 글 내용
+    String[] like = new String[]{"좋아요 360개", "좋아요 100,000개", "좋아요 100개"}; // 좋아요 개수 (일단 넣어봄 사실 동적으로 해야하는데)
+
+    ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting_text);
 
-        gallery_btn = findViewById(R.id.gallery_btn);
-        camera_btn = findViewById(R.id.camera_btn);
-        posting_btn = findViewById(R.id.posting_btn);
-        img_preview = findViewById(R.id.img_preview);
-        img_view = findViewById(R.id.img_view);
-
-        gallery_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //이미지를 선택
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
-            }
-        });
-
-        camera_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startToast("카메라 버튼");
-            }
-        });
-
-        posting_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String fileName = uploadFile();
-                if(fileName != null) {
-                    posting(fileName);
-                }
-            }
-        });
+        getDB();
 
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //request코드가 0이고 OK를 선택했고 data에 뭔가가 들어 있다면
-        if (requestCode == 0 && resultCode == RESULT_OK) {
-            filePath = data.getData();
-            Log.d(TAG, "uri:" + String.valueOf(filePath));
-            try {
-                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                img_preview.setImageBitmap(bitmap);
-                img_view.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void getDB(){
+        db_text_view = findViewById(R.id.db_text_view);
+        items = new ArrayList<Object>();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Post")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> map = new HashMap<String, Object>();
+                                String content = document.getString("content");
+                                String fileName = document.getString("fileName");
+                                String place = document.getString("place");
+                                String userUID = document.getString("userUID");
+
+                                map.put("content", content);
+                                map.put("fileName", fileName);
+                                map.put("place", place);
+                                map.put("userUID", userUID);
+
+                                items.add(map);
+                                startToast(document.toString());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                        db_text_view.setText(items.toString());
+                    }
+                });//db.collection END
+
+
+
         }
-    }
-
-    public String uploadFile() {
-        //업로드할 파일이 있으면 수행
-        if (filePath != null) {
-            //업로드 진행 Dialog 보이기
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("업로드중...");
-            progressDialog.show();
-
-            //storage
-
-            //Unique한 파일명을 만들자.
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
-            Date now = new Date();
-            String filename = formatter.format(now) + ".png";
-            //storage 주소와 폴더 파일명을 지정해 준다.
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child("post_img/" + filename);
-
-            //올라가거라...
-            storageRef.putFile(filePath)
-                    //성공시
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                            startToast("파일 업로드 완료!");
-                        }
-                    })
-                    //실패시
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            startToast("파일 업로드 실패!");
-                        }
-                    })
-                    //진행중
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
-                                    double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            //dialog에 진행률을 퍼센트로 출력해 준다
-                            progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
-                        }
-                    });
-            return "post_img/" + filename;
-        } else {
-            startToast("파일을 선택해주세요!");
-            return null;
-        }
-    }
-
-
-
-    public void posting(String fileName){
-        String userUid = user.getUid(); //유저 UID 가져오기
-        String place = ((EditText) findViewById(R.id.place)).getText().toString();
-        String content = ((EditText) findViewById(R.id.content)).getText().toString();  //문구
-//        Integer likeCount = 0;  //좋아요 수
-
-        Map<String, String> post = new HashMap<>();
-        post.put("userUid", userUid);
-        post.put("fileName", fileName);
-        post.put("place",place);
-        post.put("content", content);
-
-        DocumentReference postDoc = db.collection("Post").document();
-        postDoc.set(post, SetOptions.merge());      //DB 업로드
-        startToast(postDoc.toString() + "업로드 성공!");
-
-        //홈 화면으로 이동
-        Intent intent = new Intent(PostingTextActivity.this, HomeActivity.class);
-        intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-
-    }
 
     private void startToast(String msg){
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
+
+
 
 
 }

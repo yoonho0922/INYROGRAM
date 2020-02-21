@@ -1,5 +1,6 @@
 package com.example.instargram_copy_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,12 +9,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
+
+    List items;
 
     Button toggleButton1;
     Button toggleButton3;
@@ -22,9 +33,7 @@ public class SearchActivity extends AppCompatActivity {
 
     ListView listView;
 
-    String[] user_id = new String[]{"instar_id1", "instar_id2", "instar_id3"};
-    String[] user_name = new String[]{"안윤호1", "안윤호2", "안윤호3"};
-    int[] user_img = new int[]{R.drawable.dog1, R.drawable.dog2, R.drawable.dog3};
+    int[] profile_img = new int[]{R.drawable.profile1, R.drawable.profile2, R.drawable.profile3};
 
     ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 
@@ -35,27 +44,58 @@ public class SearchActivity extends AppCompatActivity {
 
         navbar();
 
-        int i = 0;
-        while (i < user_id.length) {
-            HashMap<String, Object> map = new HashMap<>();
+        getDB();
 
-            map.put("id", user_id[i]);
-            map.put("name", user_name[i]);
-            map.put("img", user_img[i]);
+    }
 
-            list.add(map);
-            i++;
-        }
+    public void getDB(){
+        items = new ArrayList<Object>();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Profile")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> map = new HashMap<String, Object>();
+
+                                String name = document.getString("name");
+                                String userName = document.getString("userName");
+
+                                map.put("name", name);
+                                map.put("userName", userName);
+                                items.add(map);
+                            }
+                        } else {
+                            //에러시
+                        }
+                        goMain(items);
+                    }
+                });//db.collection END
+    }// getDB END
+
+    public void goMain(List items){
+        startToast(items.toString());
+
+//        int i = 0;
+//        while (i < profile_img.length) {
+//            HashMap<String, Object> map = new HashMap<>();
+//            map.put("profile_img", profile_img[i]);
+//
+//            list.add(map);
+//            i++;
+//        }
 
         // key와 view의 아이디를 매핑
-        String[] keys = new String[]{"id", "name","img"};
-        int[] ids = new int[]{R.id.idTextView,R.id.nameTextView,R.id.imageView};
+        String[] keys = new String[]{"name", "userName"};
+        int[] ids = new int[]{R.id.idTextView,R.id.nameTextView};
 
         listView = findViewById(R.id.listView);
 
-        SimpleAdapter customAdapter = new SimpleAdapter(this, list, R.layout.search_custom_view, keys, ids);
+        SimpleAdapter customAdapter = new SimpleAdapter(this, items, R.layout.search_custom_view, keys, ids);
         listView.setAdapter(customAdapter);
-
     }
 
     public void navbar(){
@@ -101,5 +141,9 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void startToast(String msg){
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 }
