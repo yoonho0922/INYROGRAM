@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileEditActivity extends AppCompatActivity {
+
     EditText name;
     EditText userName;
     EditText website;
@@ -46,7 +47,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     Button cancelBtn;
     Button profileEditBtn;
     ImageView imageView;
-    private ImageView ivPreview;
+//    private ImageView ivPreview;
 
     private Uri filePath;
     private FirebaseAuth mAuth;
@@ -63,12 +64,11 @@ public class ProfileEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_edit);
         mAuth = FirebaseAuth.getInstance();
 
-
-
         name = findViewById(R.id.name);
         finishBtn = findViewById(R.id.finishBtn);
         profileEditBtn = findViewById(R.id.profileEditBtn);
         cancelBtn = findViewById(R.id.cancelBtn);
+        imageView = findViewById(R.id.imageView);
 
 
         getProfile();   //현재 정보 가져오기
@@ -82,7 +82,6 @@ public class ProfileEditActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
-                uploadFile();
             }
         });
 
@@ -95,6 +94,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),MyPageActivity.class);
                 intent.putExtra(" ", name.getText().toString());
                 proFile();
+                uploadFile();
                 finish();
                 overridePendingTransition(R.anim.stay, R.anim.sliding_down);
 
@@ -126,6 +126,12 @@ public class ProfileEditActivity extends AppCompatActivity {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
+                Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+                intent.putExtra("image",bitmap);
+
+
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -139,17 +145,21 @@ public class ProfileEditActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         website = findViewById(R.id.website);
         intro = findViewById(R.id.intro);
+        imageView = findViewById(R.id.imageView);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot document = task.getResult();
+                Map<String, String> post = new HashMap<>();
                 name.setText(document.getString("name"));//필드의 값을 가져와서 set
                 userName.setText(document.getString("userName"));
                 website.setText(document.getString("website"));
                 intro.setText(document.getString("intro"));
             }
         });
+
+
     }
 
     public void proFile(){ //입력한 프로필 저장하는 함수
@@ -157,6 +167,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         String userName = ((EditText) findViewById(R.id.userName)).getText().toString();//정보를 가지고옴
         String website = ((EditText) findViewById(R.id.website)).getText().toString();
         String intro = ((EditText) findViewById(R.id.intro)).getText().toString();
+//        String profile_image = ((EditText) findViewById(R.id.imageView)).getText().toString();
+
 
         //db 객체 생성하는거 전연변수로 처리해서 주석처리했습니다
 //        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
@@ -167,6 +179,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         profile.put("userName", userName);
         profile.put("website", website);
         profile.put("intro", intro);
+
 
 
         db.collection("Profile").document(user.getUid()).set(profile, SetOptions.merge())
@@ -185,6 +198,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                         Log.w(TAG, "Error adding document", e);//회원정보가 설정되어있음을 확인
                     }
                 });
+
 
     }
     private void uploadFile() {
@@ -206,13 +220,13 @@ public class ProfileEditActivity extends AppCompatActivity {
             Date now = new Date();
             String filename = formatter.format(now) + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child("images/" + filename);
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child("profile_image/" + filename);
             Map<String, Object> data = new HashMap<>();
             data.put("image", filename);
 
-            db.collection("Profile_image").document(user.getUid()) //userid에 데이터저장
+            db.collection("profile_image").document(user.getUid()) //userid에 데이터저장
                     .set(data, SetOptions.merge());
-            db.collection("Profile").document("Profile_image").set(data, SetOptions.merge());
+      //      db.collection("Profile").document("Profile_image").set(data, SetOptions.merge());
 
             //올라가거라...
             storageRef.putFile(filePath)
