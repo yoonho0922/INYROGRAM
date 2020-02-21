@@ -31,7 +31,7 @@ public class GlideActivity extends AppCompatActivity {
         storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                Glide.with(GlideActivity.this).load(task.getResult()).override(980, 1024).into(imageView);
+                Glide.with(GlideActivity.this).load(task.getResult()).into(imageView);
             }
         });
     }

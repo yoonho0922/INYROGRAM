@@ -1,9 +1,12 @@
 package com.example.instargram_copy_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -11,10 +14,24 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private static final String TAG = "MemberInfoSetting";
+    List items;
 
     Button toggleButton2;
     Button toggleButton3;
@@ -38,37 +55,89 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        getDB();
         navbar();
 
-        //// 리스트뷰 안에 내용 - 배열에 정보 넣기 ////
-        int i = 0;
-        while (i < user_id.length) {
-            HashMap<String, Object> map = new HashMap<>();
-
-            map.put("img", user_img[i]); // 프로필 사진
-            map.put("id", user_id[i]); // 사용자 ID
-            map.put("place", user_place[i]); // 장소
-            map.put("posting_picture", posting_picture[i]); // 포스팅 사진
-            map.put("posting", user_posting[i]); // 글 내용
-            map.put("like", like[i]); // 좋아요 개수 (일단 그냥 넣어본 것임)
-
-
-            list.add(map);
-            i++;
-        }
+//        //// 리스트뷰 안에 내용 - 배열에 정보 넣기 ////
+//        int i = 0;
+//        while (i < user_id.length) {
+//            HashMap<String, Object> map = new HashMap<>();
+//
+//            map.put("img", user_img[i]); // 프로필 사진
+//            map.put("id", user_id[i]); // 사용자 ID
+//            map.put("place", user_place[i]); // 장소
+//            map.put("posting_picture", posting_picture[i]); // 포스팅 사진
+//            map.put("posting", user_posting[i]); // 글 내용
+//            map.put("like", like[i]); // 좋아요 개수 (일단 그냥 넣어본 것임)
+//
+//
+//            list.add(map);
+//            i++;
+//        }
 
         //// 리스트뷰 안에 내용 - key와 view의 아이디를 매핑 ////
-        String[] keys = new String[]{"img", "id", "place", "posting_picture", "id", "posting", "like"};
-        int[] ids = new int[]{R.id.picture_profile,R.id.idtextView_up,R.id.placetextView,R.id.picture_posting,R.id.idtextView_under,R.id.postingtextView,R.id.liketextView};
-
-        listView = findViewById(R.id.listView);
-
-        SimpleAdapter customAdapter = new SimpleAdapter(this, list, R.layout.home_custom_view, keys, ids);
-        listView.setAdapter(customAdapter);
+//        String[] keys = new String[]{"img", "id", "place", "posting_picture", "id", "posting", "like"};
+//        int[] ids = new int[]{R.id.picture_profile,R.id.idtextView_up,R.id.placetextView,R.id.picture_posting,R.id.idtextView_under,R.id.postingtextView,R.id.liketextView};
+//
+//        listView = findViewById(R.id.listView);
+//
+//        SimpleAdapter customAdapter = new SimpleAdapter(this, list, R.layout.home_custom_view, keys, ids);
+//        listView.setAdapter(customAdapter);
 
 
     }
+
+    public void getDB(){
+        items = new ArrayList<Object>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Post")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                HashMap<String, Object> map = new HashMap<String, Object>();
+
+                                String content = document.getString("content");
+                                String fileName = document.getString("fileName");
+                                String place = document.getString("place");
+                                String userUID = document.getString("userUID");
+
+                                map.put("content", content);
+                                map.put("fileName", fileName);
+                                map.put("place", place);
+                                map.put("userUID", userUID);
+
+                                items.add(map);
+                            }
+                            goMain(items);
+                    }
+                });//db.collection END
+
+
+
+
+
+    }
+
+    public void goMain(List items){
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference().child("fileName"); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
+        storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+//                Glide.with(GlideActivity.this).load(task.getResult()).into(imageView);
+            }
+        });
+        String[] keys = new String[]{"userUID", "place", "userUID", "content", "content"};
+        int[] ids = new int[]{R.id.idtextView_up,R.id.placetextView,R.id.idtextView_under,R.id.postingtextView,R.id.liketextView};
+
+        listView = findViewById(R.id.listView);
+
+        SimpleAdapter customAdapter = new SimpleAdapter(this, items, R.layout.home_custom_view, keys, ids);
+        listView.setAdapter(customAdapter);
+    }
+
 
     public void navbar(){
         toggleButton2 = findViewById(R.id.toggleButton2);
