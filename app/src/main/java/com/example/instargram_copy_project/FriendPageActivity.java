@@ -64,6 +64,7 @@ public class FriendPageActivity  extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 startToast("회원정보 저장 완료");
+                                follower(friendUserId);
                                 aramfollowing(friendUserId);
                                 //회원정보가 설정되어있음을 확인
 
@@ -105,18 +106,18 @@ public class FriendPageActivity  extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Integer> friend_profile = new HashMap<>();
-        friend_profile.put("followset",1);
+        friend_profile.put("followset",1); //팔로우 안했을때
         db.collection("Aram").document(friendUserId).collection("friends")
                 .document(user.getUid()).set(friend_profile, SetOptions.merge());
     }
-    public void follwer_su(){ //팔로워 수를 늘림
-
+    public void follower(String friendUserId) {//팔로우 정보
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Integer> friend_profile = new HashMap<>();
+        friend_profile.put("followset", 1);
+        db.collection("Follower").document(friendUserId).collection("friends")
+                .document(user.getUid()).set(friend_profile, SetOptions.merge());
     }
-
-    public void following_su(){ //팔로잉 수를 늘림\
-    }
-
-
 
     public void navbar(){
         toggleButton1 = findViewById(R.id.toggleButton1);

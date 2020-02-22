@@ -127,13 +127,24 @@ public class MyPageActivity extends AppCompatActivity {
     }
     public void showFollower(){ //팔로우 값을 가져옴
         follower = findViewById(R.id.textView8);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
-                follower.setText(document.getString("follower"));//필드 userName의
-            }
-        });
+        db.collection("Follower").document(user.getUid()).collection("friends")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Integer follower_su = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                follower_su += 1;
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                            follower.setText(follower_su.toString());
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
     }
     public void showFollowing() { //following수 출력
         following = findViewById(R.id.textView9);
