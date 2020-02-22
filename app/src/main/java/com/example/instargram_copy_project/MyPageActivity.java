@@ -1,7 +1,6 @@
 package com.example.instargram_copy_project;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +36,7 @@ public class MyPageActivity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference docRef = db.collection("Profile").document(user.getUid()); //현재 유저의 프로필 접근
-    DocumentReference docRef2 = db.collection("profile_image").document(user.getUid()); //현재 유저의 프로필 접근
+
 
 
 
@@ -64,7 +63,8 @@ public class MyPageActivity extends AppCompatActivity {
         getUserName();
         getWebsiteName();
         getIntroName();
-        getProfileImage();
+
+
 
 
 
@@ -115,16 +115,10 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
     }
-    public void getProfileImage(){    //현재 userName 가지고오는 함수
-        imageView = findViewById(R.id.imageView);
-        docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
-                imageView.setImageURI(Uri.parse(document.getString("image")));
-            }
-        });
-    }
+
+
+
+
 
 
 
