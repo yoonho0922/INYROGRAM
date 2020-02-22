@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -28,6 +29,9 @@ public class SearchActivity extends AppCompatActivity {
 
     List items;
     SearchCustomAdapter adapter;
+
+    List name;
+    List userName;
 
     Button toggleButton1;
     Button toggleButton3;
@@ -52,6 +56,8 @@ public class SearchActivity extends AppCompatActivity {
 
     public void getDB(){
         items = new ArrayList<Object>();
+        name = new ArrayList<String>();
+        userName = new ArrayList<String>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Profile")
@@ -61,32 +67,37 @@ public class SearchActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Map<String, Object> map = new HashMap<String, Object>();
 
-                                String name = document.getString("name");
-                                String userName = document.getString("userName");
-
-                                map.put("name", name);
-                                map.put("userName", userName);
-                                items.add(map);
+                                name.add(document.getString("name"));
+                                userName.add(document.getString("userName"));
+                                Log.d(this.getClass().getName(),"로그1"+name.toString());
+                                Log.d(this.getClass().getName(),"로그1"+userName.toString());
                             }
                         } else {
                             //에러시
                         }
-                        goMain(items);
+                        goMain();
+                        Log.d(this.getClass().getName(),"로그2"+name.toString());
+                        Log.d(this.getClass().getName(),"로그2"+userName.toString());
+                        //여기까지 값이 살아있으니까 여기서 처리해야 된다!!
                     }
                 });//db.collection END
+        Log.d(this.getClass().getName(),"로그3"+name.toString()); //여기는 null값
     }// getDB END
 
-    public void goMain(List items) {
+    public void goMain() {
+
+        Log.d(this.getClass().getName(),"로그4"+name.toString());
+        Log.d(this.getClass().getName(),"로그4"+userName.toString());
 
         adapter = new SearchCustomAdapter();
         listView = (ListView) findViewById(R.id.listView);
 
         setData();
 
-        listView.setAdapter(adapter);
+        SearchCustomDTO dto = new SearchCustomDTO();
 
+        listView.setAdapter(adapter);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,18 +128,22 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     void setData() {
-//        TypedArray arrResId = getResources().obtainTypedArray(R.array.resId);
-        int[] profile_img = new int[]{R.drawable.profile1, R.drawable.profile2, R.drawable.profile3};
-        String[] name = {"윤호","김신","진구"};
-        String[] userName = {"yoon","shin","goo"};
 
-        for (int i = 0; i < profile_img.length; i++) {
+        Log.d(this.getClass().getName(),"로그5"+name.toString());
+        Log.d(this.getClass().getName(),"로그5"+userName.toString());
+//        int[] profile_img = new int[]{R.drawable.profile1, R.drawable.profile2, R.drawable.profile3};
+//        String[] name = {"윤호","김신","진구"};
+//        String[] userName = {"yoon","shin","goo"};
+
+        Log.d(this.getClass().getName(),"로그6"+name.size());
+        for (int i = 0; i < name.size(); i++) {
             SearchCustomDTO dto = new SearchCustomDTO();
-            dto.setResId(profile_img[i]);
-            dto.setName(name[i]);
-            dto.setUserName(userName[i]);
-
+            dto.setName(name.get(i).toString());
+            dto.setUserName(userName.get(i).toString());
+            dto.setResId(R.drawable.profile2);
+            Log.d(this.getClass().getName(),"로그7"+name.get(i).toString());
             adapter.addItem(dto);
+            Log.d(this.getClass().getName(),"로그8"+dto.getName());
         }
     }
 
