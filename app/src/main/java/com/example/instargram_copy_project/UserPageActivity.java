@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class UserPageActivity extends AppCompatActivity {
@@ -15,12 +16,21 @@ public class UserPageActivity extends AppCompatActivity {
     Button toggleButton3;
     Button toggleButton4;
 
+    ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
-
         navbar();
+
+        // MainActivity에서 보낸 imgRes를 받기위해 getIntent()로 초기화
+        Intent intent = getIntent();
+        imageView = (ImageView) findViewById(R.id.imageView);
+
+        // "imgRes" key로 받은 값은 int 형이기 때문에 getIntExtra(key, defaultValue);
+        // 받는 값이 String 형이면 getStringExtra(key);
+        imageView.setImageResource(intent.getIntExtra("imgRes", 0));
     }
 
     public void navbar(){

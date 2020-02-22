@@ -104,12 +104,12 @@ public class SearchActivity extends AppCompatActivity {
                 // adapter.getItem(position)의 return 값은 Object 형
                 // 실제 Item의 자료형은 CustomDTO 형이기 때문에
                 // 형변환을 시켜야 getResId() 메소드를 호출할 수 있습니다.
-//                int imgRes = ((SearchCustomDTO)adapter.getItem(position)).getResId();
+                int imgRes = ((SearchCustomDTO)adapter.getItem(position)).getResId();
 
                 // new Intent(현재 Activity의 Context, 시작할 Activity 클래스)
                 Intent intent = new Intent(SearchActivity.this, UserPageActivity.class);
                 // putExtra(key, value)
-//                intent.putExtra("imgRes", imgRes);
+                intent.putExtra("imgRes", imgRes);
                 startActivity(intent);
                 finish();
             }
