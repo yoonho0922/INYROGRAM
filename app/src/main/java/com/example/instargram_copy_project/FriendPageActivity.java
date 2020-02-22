@@ -109,6 +109,13 @@ public class FriendPageActivity  extends AppCompatActivity {
         db.collection("Aram").document(friendUserId).collection("friends")
                 .document(user.getUid()).set(friend_profile, SetOptions.merge());
     }
+    public void follwer_su(){ //팔로워 수를 늘림
+
+    }
+
+    public void following_su(){ //팔로잉 수를 늘림\
+    }
+
 
 
     public void navbar(){

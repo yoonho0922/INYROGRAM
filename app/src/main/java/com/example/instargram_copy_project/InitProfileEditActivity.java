@@ -115,7 +115,6 @@ public class InitProfileEditActivity extends AppCompatActivity {
         String userName = ((EditText) findViewById(R.id.userName)).getText().toString();//정보를 가지고옴
         String website = ((EditText) findViewById(R.id.website)).getText().toString();
         String intro = ((EditText) findViewById(R.id.intro)).getText().toString();
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -124,6 +123,7 @@ public class InitProfileEditActivity extends AppCompatActivity {
         profile.put("userName", userName);
         profile.put("website", website);
         profile.put("intro", intro);
+        //회원정보가 한번이라도 저장이 되었다
 
 
         db.collection("Profile").document(user.getUid()).set(profile, SetOptions.merge())

@@ -16,7 +16,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.internal.InternalTokenProvider;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -46,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
                 case R.id.signup_button:
                     Intent intent_profile = new Intent(SignupActivity.this, InitProfileEditActivity.class);
                     signUp(); // 회원가입 함수 실행
-                    startActivity(intent_profile); // 회원가입 수행 후 프로필 받으러 감
+                    startActivity(intent_profile);// 회원가입 수행 후 프로필 받으러 감
                     break;
                 case R.id.login_button1:
                     startLoginActivity(); // 로그인 창으로 간다
@@ -65,7 +70,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if (email.contains("@") && email.contains(".")) { // 아이디가 이메일 형식인지 확인
             if (password.equals(re_password) ) { // 비밀번호와 재비밀번호가 일치하는지 확인
-                if (Integer.parseInt(password) > 6) { // 비밀번호가 여섯자리 이상인지 확인
+                if (password.length() > 6) { // 비밀번호가 여섯자리 이상인지 확인
 
                     mAuth.createUserWithEmailAndPassword(email, password) // 변수 email과 password의 저장된 값을 전송 (mAuth는 Firebase 객체)
                             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -105,4 +110,18 @@ public class SignupActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+    public void follower_following(){ //팔로잉 팔로워 수를 0으로 초기화
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, String> following_follower = new HashMap<>();
+        following_follower.put("follower", "0");
+        following_follower.put("following", "0");
+        following_follower.put("posting", "0");
+        db.collection("Profile").document(user.getUid())
+                .set(following_follower, SetOptions.merge());
+    }
+
+
+
+
 }

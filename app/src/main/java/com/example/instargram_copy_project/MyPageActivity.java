@@ -2,6 +2,7 @@ package com.example.instargram_copy_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,10 +19,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MyPageActivity extends AppCompatActivity {
 
     Button toggleButton1;
+    private static final String TAG = "MemberInfoSetting";
     Button toggleButton2;
     Button toggleButton3;
     Button toggleButton4;
@@ -32,6 +36,9 @@ public class MyPageActivity extends AppCompatActivity {
     TextView web_profile;
     TextView intro_profile;
     ImageView imageView;
+    TextView follower;
+    TextView posting;
+    TextView following;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -63,6 +70,9 @@ public class MyPageActivity extends AppCompatActivity {
         getUserName();
         getWebsiteName();
         getIntroName();
+        showFollower();
+        showFollowing();
+        showPosting();
 
 
 
@@ -115,12 +125,47 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
     }
+    public void showFollower(){ //팔로우 값을 가져옴
+        follower = findViewById(R.id.textView8);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                follower.setText(document.getString("follower"));//필드 userName의
+            }
+        });
+    }
+    public void showFollowing() { //following수 출력
+        following = findViewById(R.id.textView9);
+        db.collection("Following").document(user.getUid()).collection("friends")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Integer following_su = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                following_su += 1;
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                            following.setText(following_su.toString());
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 
-
-
-
-
-
+    public void showPosting() { //포스팅수 출력
+        posting = findViewById(R.id.textView2);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                posting.setText(document.getString("posting"));//필드 userName의
+            }
+        });
+    }
 
     public void navbar(){
         toggleButton1 = findViewById(R.id.toggleButton1);
