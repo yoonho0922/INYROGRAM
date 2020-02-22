@@ -140,8 +140,9 @@ public class SearchActivity extends AppCompatActivity {
                 Log.d(this.getClass().getName(),"로그11"+intent.getIntExtra("imgRes", 0));
 
 
+
                 startActivity(intent);
-                finish();
+                overridePendingTransition(0, 0);
             }
         });
     }
