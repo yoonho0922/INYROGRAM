@@ -169,13 +169,23 @@ public class MyPageActivity extends AppCompatActivity {
 
     public void showPosting() { //포스팅수 출력
         posting = findViewById(R.id.textView2);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
-                posting.setText(document.getString("posting"));//필드 userName의
-            }
-        });
+        db.collection("Posting").document(user.getUid()).collection("posting")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Integer posting_su = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                posting_su += 1;
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                            posting.setText(posting_su.toString());
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     public void navbar(){
