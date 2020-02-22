@@ -3,10 +3,9 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.instargram_copy_project">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <dist:module dist:instant="true" />
@@ -18,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GlideActivity"></activity>
+        <activity android:name=".UserPageActivity"></activity>
+        <activity android:name=".GlideActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -38,23 +38,19 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".FriendPageActivity" />
         <activity android:name=".SearchActivity1" />
 
         <provider
-            android:authorities="com.example.camerahong"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.camerahong"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-
         </provider>
-
-
     </application>
 
 </manifest>
