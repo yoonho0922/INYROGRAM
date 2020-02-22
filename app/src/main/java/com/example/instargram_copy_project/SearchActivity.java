@@ -119,11 +119,27 @@ public class SearchActivity extends AppCompatActivity {
                 // 실제 Item의 자료형은 CustomDTO 형이기 때문에
                 // 형변환을 시켜야 getResId() 메소드를 호출할 수 있습니다.
                 int imgRes = ((SearchCustomDTO)adapter.getItem(position)).getResId();
+                String intro = ((SearchCustomDTO)adapter.getItem(position)).getIntro();
+                String name = ((SearchCustomDTO)adapter.getItem(position)).getName();
+                String userName = ((SearchCustomDTO)adapter.getItem(position)).getUserName();
+                String website = ((SearchCustomDTO)adapter.getItem(position)).getWebsite();
+
+                Log.d(this.getClass().getName(),"로그10"+intro);
+                Log.d(this.getClass().getName(),"로그10"+((SearchCustomDTO)adapter.getItem(position)).getIntro());
 
                 // new Intent(현재 Activity의 Context, 시작할 Activity 클래스)
                 Intent intent = new Intent(SearchActivity.this, UserPageActivity.class);
                 // putExtra(key, value)
                 intent.putExtra("imgRes", imgRes);
+                intent.putExtra("intro", intro);
+                intent.putExtra("name", name);
+                intent.putExtra("userName", userName);
+                intent.putExtra("website", website);
+
+                Log.d(this.getClass().getName(),"로그11"+intent.getStringExtra("intro"));
+                Log.d(this.getClass().getName(),"로그11"+intent.getIntExtra("imgRes", 0));
+
+
                 startActivity(intent);
                 finish();
             }
