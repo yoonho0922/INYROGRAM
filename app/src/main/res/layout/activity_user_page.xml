@@ -230,7 +230,7 @@
                         android:layout_height="111dp"
                         android:padding="1dp"
                         android:scaleType="fitXY"
-                        app:srcCompat="@drawable/profile1" />
+                        app:srcCompat="@drawable/profile8" />
 
                     <ImageView
                         android:id="@+id/imageView4"

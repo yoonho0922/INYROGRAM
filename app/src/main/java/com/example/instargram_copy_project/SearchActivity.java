@@ -4,14 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,15 +21,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
 
     List items;
     SearchCustomAdapter adapter;
 
+    List intro;
     List name;
     List userName;
+    List website;
 
     Button toggleButton1;
     Button toggleButton3;
@@ -56,8 +55,10 @@ public class SearchActivity extends AppCompatActivity {
 
     public void getDB(){
         items = new ArrayList<Object>();
+        intro = new ArrayList<String>();
         name = new ArrayList<String>();
         userName = new ArrayList<String>();
+        website = new ArrayList<String>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Profile")
@@ -68,8 +69,10 @@ public class SearchActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
+                                intro.add(document.getString("intro"));
                                 name.add(document.getString("name"));
                                 userName.add(document.getString("userName"));
+                                website.add(document.getString("website"));
                                 Log.d(this.getClass().getName(),"로그1"+name.toString());
                                 Log.d(this.getClass().getName(),"로그1"+userName.toString());
                             }
@@ -131,16 +134,17 @@ public class SearchActivity extends AppCompatActivity {
 
         Log.d(this.getClass().getName(),"로그5"+name.toString());
         Log.d(this.getClass().getName(),"로그5"+userName.toString());
-//        int[] profile_img = new int[]{R.drawable.profile1, R.drawable.profile2, R.drawable.profile3};
-//        String[] name = {"윤호","김신","진구"};
-//        String[] userName = {"yoon","shin","goo"};
+        int[] profile_img = new int[]{R.drawable.profile1, R.drawable.profile2, R.drawable.profile3, R.drawable.profile4,
+                R.drawable.profile5,R.drawable.profile6,R.drawable.profile7,R.drawable.profile8};
 
         Log.d(this.getClass().getName(),"로그6"+name.size());
-        for (int i = 0; i < name.size(); i++) {
+        for (int i = 0; i < name.size(); i++) {     //DB에서 받은 데이터를 DTO에서 set
             SearchCustomDTO dto = new SearchCustomDTO();
+            dto.setIntro(intro.get(i).toString());
             dto.setName(name.get(i).toString());
             dto.setUserName(userName.get(i).toString());
-            dto.setResId(R.drawable.profile2);
+            dto.setWebsite(website.get(i).toString());
+            dto.setResId(profile_img[i%8]);
             Log.d(this.getClass().getName(),"로그7"+name.get(i).toString());
             adapter.addItem(dto);
             Log.d(this.getClass().getName(),"로그8"+dto.getName());

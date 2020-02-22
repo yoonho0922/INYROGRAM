@@ -2,8 +2,10 @@ package com.example.instargram_copy_project;
 
 public class SearchCustomDTO {
     private int resId;
+    private String intro;
     private String name;
     private String userName;
+    private String website;
 
     public int getResId() {
         return resId;
@@ -11,6 +13,14 @@ public class SearchCustomDTO {
 
     public void setResId(int resId) {
         this.resId = resId;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 
     public String getName() {
@@ -27,5 +37,13 @@ public class SearchCustomDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }
