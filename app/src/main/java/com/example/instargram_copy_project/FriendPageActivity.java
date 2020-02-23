@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
@@ -35,7 +37,12 @@ public class FriendPageActivity  extends AppCompatActivity {
     Button toggleButton2;
     Button toggleButton3;
     Button toggleButton4;
+    TextView followertv;
+    TextView postingtv;
+    TextView followingtv;
     Button following;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView user_name;
     Button profileEditBtn;
     TextView name_profile;
@@ -51,6 +58,9 @@ public class FriendPageActivity  extends AppCompatActivity {
         String friend_info = getIntent().getExtras().getString("Friend");
         final String friendUserId = getFriendUserId(friend_info);//검색해서 누를 유저의 id를 firned_info에 저장
         getFrinedName(friendUserId);
+        showFollower(friendUserId);
+        showFollowing(friendUserId);
+        showPosting(friendUserId);
         following.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +127,68 @@ public class FriendPageActivity  extends AppCompatActivity {
         friend_profile.put("followset", 1);
         db.collection("Follower").document(friendUserId).collection("friends")
                 .document(user.getUid()).set(friend_profile, SetOptions.merge());
+    }
+    public void showFollower(String friendUserId){ //팔로우 값을 가져옴
+        followertv = findViewById(R.id.textView8);
+        db.collection("Follower").document(friendUserId).collection("friends")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Integer follower_su = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                follower_su += 1;
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                            followertv.setText(follower_su.toString());
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+    }
+    public void showFollowing(String friendUserId) { //following수 출력
+        followingtv = findViewById(R.id.textView9);
+        db.collection("Following").document(friendUserId).collection("friends")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Integer following_su = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                following_su += 1;
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                            followingtv.setText(following_su.toString());
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void showPosting(String friendUserId) { //포스팅수 출력
+        postingtv = findViewById(R.id.textView2);
+        db.collection("Posting").document(friendUserId).collection("posting")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Integer posting_su = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                posting_su += 1;
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                            postingtv.setText(posting_su.toString());
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     public void navbar(){
