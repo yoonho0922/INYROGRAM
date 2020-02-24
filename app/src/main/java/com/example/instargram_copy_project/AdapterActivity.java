@@ -64,15 +64,16 @@ public class AdapterActivity extends BaseAdapter {
         final Map listViewItem = item.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-
-        test1.setText(listViewItem.get("fileName").toString());
-        test2.setText("hi hi");
-        FirebaseStorage.getInstance().getReference().child(listViewItem.get("fileName").toString()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                Glide.with(context).load(task.getResult()).into(test3);
-            }
-        });
+        if(listViewItem.get("fileName")!=null) {
+            test1.setText(listViewItem.get("fileName").toString());
+            test2.setText("hi hi");
+            FirebaseStorage.getInstance().getReference().child(listViewItem.get("fileName").toString()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    Glide.with(context).load(task.getResult()).into(test3);
+                }
+            });
+        }
 
         return convertView;
     }

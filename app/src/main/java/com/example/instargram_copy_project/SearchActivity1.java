@@ -61,7 +61,6 @@ public class SearchActivity1 extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String Friend_info = (String) parent.getItemAtPosition(position);
-                startToast(Friend_info);
                 Intent oIntent = new Intent(SearchActivity1.this, FriendPageActivity.class);
                 oIntent.putExtra("Friend",Friend_info);
                 startActivity(oIntent);

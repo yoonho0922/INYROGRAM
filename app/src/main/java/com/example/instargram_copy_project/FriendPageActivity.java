@@ -55,8 +55,7 @@ public class FriendPageActivity  extends AppCompatActivity {
         name_profile = findViewById(R.id.name_profile);
         following = findViewById(R.id.following);
         user_name = findViewById(R.id.user_name);
-        String friend_info = getIntent().getExtras().getString("Friend");
-        final String friendUserId = getFriendUserId(friend_info);//검색해서 누를 유저의 id를 firned_info에 저장
+        final String friendUserId = getIntent().getExtras().getString("Friend");
         getFrinedName(friendUserId);
         showFollower(friendUserId);
         showFollowing(friendUserId);
@@ -93,11 +92,12 @@ public class FriendPageActivity  extends AppCompatActivity {
 
     public String getFriendUserId(String friend_info){ //검색해서 누른 유저의 id를 얻음.
 
-        StringTokenizer tokens = new StringTokenizer(friend_info, "\n" );
+        StringTokenizer tokens = new StringTokenizer(friend_info, "userId=" );
         for( int x = 1; tokens.hasMoreElements(); x++ )
         {
-            friend_info = tokens.nextToken();
+           friend_info = tokens.nextToken();
         }
+        user_name.setText(friend_info);
         return friend_info;
     }
     public void getFrinedName(String friendUserId){
