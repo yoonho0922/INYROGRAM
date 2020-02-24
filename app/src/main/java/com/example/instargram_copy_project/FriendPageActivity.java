@@ -38,8 +38,10 @@ public class FriendPageActivity  extends AppCompatActivity {
     Button toggleButton3;
     Button toggleButton4;
     TextView followertv;
-    TextView postingtv;
+    TextView followertv1;
     TextView followingtv;
+    TextView followingtv1;
+    TextView postingtv;
     Button following;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -55,6 +57,9 @@ public class FriendPageActivity  extends AppCompatActivity {
         name_profile = findViewById(R.id.name_profile);
         following = findViewById(R.id.following);
         user_name = findViewById(R.id.user_name);
+        followertv1 = findViewById(R.id.textView11);
+        followingtv1 = findViewById(R.id.textView12);
+        followertv = findViewById(R.id.textView8);
         final String friendUserId = getIntent().getExtras().getString("Friend");
         getFrinedName(friendUserId);
         showFollower(friendUserId);
@@ -88,7 +93,40 @@ public class FriendPageActivity  extends AppCompatActivity {
                         });
             }
         });
+        followertv.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent oIntent = new Intent(FriendPageActivity.this, FollowerListActivity.class);
+                oIntent.putExtra("ID",friendUserId);
+                startActivity(oIntent);
+            }
+        });
+        followertv1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent oIntent = new Intent(FriendPageActivity.this, FollowerListActivity.class);
+                oIntent.putExtra("ID",friendUserId);
+                startActivity(oIntent);
+            }
+        });
+        followingtv1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent oIntent = new Intent(FriendPageActivity.this, FollowingListActivity.class);
+                oIntent.putExtra("ID",friendUserId);
+                startActivity(oIntent);
+            }
+        });
+        followingtv.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent oIntent = new Intent(FriendPageActivity.this, FollowingListActivity.class);
+                oIntent.putExtra("ID",friendUserId);
+                startActivity(oIntent);
+            }
+        });
     }
+
 
     public String getFriendUserId(String friend_info){ //검색해서 누른 유저의 id를 얻음.
 
@@ -129,7 +167,6 @@ public class FriendPageActivity  extends AppCompatActivity {
                 .document(user.getUid()).set(friend_profile, SetOptions.merge());
     }
     public void showFollower(String friendUserId){ //팔로우 값을 가져옴
-        followertv = findViewById(R.id.textView8);
         db.collection("Follower").document(friendUserId).collection("friends")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
