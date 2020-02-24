@@ -184,13 +184,13 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         db.collection("Profile").document(user.getUid()).set(profile, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                startToast("회원정보 저장 완료");
-                //회원정보가 설정되어있음을 확인
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        startToast("회원정보 저장 완료");
+                        //회원정보가 설정되어있음을 확인
 
-            }
-        })
+                    }
+                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -226,7 +226,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
             db.collection("profile_image").document(user.getUid()) //userid에 데이터저장
                     .set(data, SetOptions.merge());
-      //      db.collection("Profile").document("Profile_image").set(data, SetOptions.merge());
+            //      db.collection("Profile").document("Profile_image").set(data, SetOptions.merge());
 
             //올라가거라...
             storageRef.putFile(filePath)
@@ -264,5 +264,5 @@ public class ProfileEditActivity extends AppCompatActivity {
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 
-    }
+}
 

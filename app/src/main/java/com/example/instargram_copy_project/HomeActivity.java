@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
@@ -31,7 +33,7 @@ import java.util.Map;
 public class HomeActivity extends AppCompatActivity {
 
     private static final String TAG = "MemberInfoSetting";
-    List items;
+    ArrayList items;
 
     Button toggleButton2;
     Button toggleButton3;
@@ -88,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void getDB(){
-        items = new ArrayList<Object>();
+        items = new ArrayList<Map>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Post")
                 .get()
@@ -96,7 +98,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                HashMap<String, Object> map = new HashMap<String, Object>();
+                                HashMap<String, String> map = new HashMap<String, String>();
 
                                 String content = document.getString("content");
                                 String fileName = document.getString("fileName");
@@ -110,7 +112,13 @@ public class HomeActivity extends AppCompatActivity {
 
                                 items.add(map);
                             }
-                            goMain(items);
+//                            goMain(items);
+
+                        listView = findViewById(R.id.listView);
+
+                        AdapterActivity customAdapter = new AdapterActivity(items);
+                        listView.setAdapter(customAdapter);
+
                     }
                 });//db.collection END
 
@@ -120,22 +128,23 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    public void goMain(List items){
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference().child("fileName"); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
-        storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-//                Glide.with(GlideActivity.this).load(task.getResult()).into(imageView);
-            }
-        });
-        String[] keys = new String[]{"userUID", "place", "userUID", "content", "content"};
-        int[] ids = new int[]{R.id.idtextView_up,R.id.placetextView,R.id.idtextView_under,R.id.postingtextView,R.id.liketextView};
+    public void goMain(ArrayList items){
+//        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+//        StorageReference storageReference = firebaseStorage.getReference().child("fileName"); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
+//        storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Uri> task) {
+//                ImageView imageView = findViewById(R.id.picture_posting);
+////                Glide.with(HomeActivity.this).load(task).into(imageView);
+//            }
+//        });
+//        String[] keys = new String[]{"userUID", "place", "userUID", "content", "content"};
+//        int[] ids = new int[]{R.id.idtextView_up,R.id.placetextView,R.id.idtextView_under,R.id.postingtextView,R.id.liketextView};
 
-        listView = findViewById(R.id.listView);
-
-        SimpleAdapter customAdapter = new SimpleAdapter(this, items, R.layout.home_custom_view, keys, ids);
-        listView.setAdapter(customAdapter);
+//        listView = findViewById(R.id.listView);
+//
+//        AdapterActivity customAdapter = new AdapterActivity(items);
+//        listView.setAdapter(customAdapter);
     }
 
 
