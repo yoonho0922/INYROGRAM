@@ -56,7 +56,7 @@ public class PostingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_posting_text);
+        setContentView(R.layout.activity_posting);
 
         gallery_btn = findViewById(R.id.gallery_btn);
         camera_btn = findViewById(R.id.camera_btn);
