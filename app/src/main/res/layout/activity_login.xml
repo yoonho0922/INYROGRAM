@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/thick_font"
-                android:hint = "사용자 이름"
+                android:hint = "이메일"
                 android:id = "@+id/idlogin"
                 android:textSize="30dp"
                 android:layout_marginLeft="20dp"
@@ -47,11 +47,11 @@
                 android:layout_height="wrap_content"
                 android:id = "@+id/passwordlogin"
                 android:fontFamily="@font/thick_font"
-
                 android:hint = "비밀번호"
                 android:textSize="30dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

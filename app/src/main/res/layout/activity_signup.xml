@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/login_backgroung"
+
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,8 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="email"
+            android:hint="이메일"
             android:id = "@+id/idsignup"
+            android:fontFamily="@font/thick_font"
+
             android:textSize="25dp" />
 
         <EditText
@@ -38,14 +42,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:id = "@+id/passwordsignup"
-            android:hint="password"
+            android:fontFamily="@font/thick_font"
+
+            android:hint="비밀번호"
             android:textSize="25dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="re_password"
+            android:hint="비밀번호 확인"
+            android:fontFamily="@font/thick_font"
+
             android:id = "@+id/repasswordsignup"
             android:textSize="25dp" />
         <LinearLayout
@@ -59,8 +67,11 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
-                android:backgroundTint="#F0E79A"
-                android:text="SIGN UP"
+                android:backgroundTint="#FDFDFD"
+                android:text="가입"
+                android:fontFamily="@font/thick_font"
+                android:background="@drawable/round_corner"
+
                 android:textAlignment="center"
                 android:id = "@+id/signup_button"
                 android:layout_weight="1"
@@ -71,9 +82,11 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
-                android:backgroundTint="#F0E79A"
+                android:backgroundTint="#FFFDFD"
                 android:layout_weight="1"
-                android:text="LOG IN"
+                android:fontFamily="@font/thick_font"
+                android:background="@drawable/round_corner"
+                android:text="로그인"
                 android:textAlignment="center"
                 android:id = "@+id/login_button1"
                 android:textSize="30dp" />

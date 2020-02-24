@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
-import com.google.firebase.internal.InternalTokenProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
                 case R.id.signup_button:
                     Intent intent_profile = new Intent(SignupActivity.this, InitProfileEditActivity.class);
                     signUp(); // 회원가입 함수 실행
-                    startActivity(intent_profile);// 회원가입 수행 후 프로필 받으러 감
+                    startActivity(intent_profile);
                     break;
                 case R.id.login_button1:
                     startLoginActivity(); // 로그인 창으로 간다
@@ -80,6 +78,7 @@ public class SignupActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser(); // 로그인 성공
+
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "createUserWithEmail:failure", task.getException());

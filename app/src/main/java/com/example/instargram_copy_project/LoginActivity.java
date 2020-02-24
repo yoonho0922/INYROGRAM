@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG ="LoginActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +29,14 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.login_button2).setOnClickListener(onClickListener);
         findViewById(R.id.resister_button).setOnClickListener(onClickListener);
         findViewById(R.id.logout_button).setOnClickListener(onClickListener);
+
     }
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
     }
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
