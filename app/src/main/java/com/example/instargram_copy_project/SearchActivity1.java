@@ -92,12 +92,12 @@ public class SearchActivity1 extends AppCompatActivity {
                                 Map<String, Object> mapId = new HashMap<String, Object>();
                                 String username = document.getString("userName");
 
-                                //if(username.contains(s)){
+                                if(username.contains(s)){
                                     mapName.put("name", username);
                                     mapId.put("id", document.getId());
                                     items.add(mapName.get("name") + "\n" + mapId.get("id"));
                                     Log.d(TAG, document.getId() + " => " + document.getData());
-                               // }
+                                 }
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -108,5 +108,6 @@ public class SearchActivity1 extends AppCompatActivity {
                     }
                 });
     }
+
 
 }

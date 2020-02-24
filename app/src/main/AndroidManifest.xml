@@ -41,6 +41,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".FriendPageActivity" />
         <activity android:name=".SearchActivity1" />
+        <activity android:name=".SearchActivity2"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
