@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     Button my_page_btn;
     Button login_btn;
     Button signup_btn;
-    Button posting_text_btn;
     TextView textView1;
     Button glide_btn;
 
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         my_page_btn = findViewById(R.id.my_page_btn);
         login_btn = findViewById(R.id.login_btn);
         signup_btn = findViewById(R.id.signup_btn);
-        posting_text_btn = findViewById(R.id.posting_text_btn);
         textView1 = findViewById(R.id.textView1);
         glide_btn = findViewById(R.id.glide_btn);
 
@@ -92,14 +90,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-                intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-            }
-        });
-        posting_text_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PostingTextActivity.class);
                 intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
