@@ -27,6 +27,7 @@ public class SearchActivity extends AppCompatActivity {
     List items;
     SearchCustomAdapter adapter;
 
+    List profileImage;
     List intro;
     List name;
     List userName;
@@ -56,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
     public void getDB(){
         items = new ArrayList<Object>();
         intro = new ArrayList<String>();
+        profileImage = new ArrayList<String>();
         name = new ArrayList<String>();
         userName = new ArrayList<String>();
         website = new ArrayList<String>();
@@ -69,19 +71,19 @@ public class SearchActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
+                                if(document.getString("profile_image")!=""){
+                                    profileImage.add(document.getString("profile_image"));
+                                }
                                 intro.add(document.getString("intro"));
                                 name.add(document.getString("name"));
                                 userName.add(document.getString("userName"));
                                 website.add(document.getString("website"));
-                                Log.d(this.getClass().getName(),"로그1"+name.toString());
-                                Log.d(this.getClass().getName(),"로그1"+userName.toString());
+                                Log.d(this.getClass().getName(),"searchActivity로그1"+profileImage.toString());
                             }
                         } else {
                             //에러시
                         }
                         goMain();
-                        Log.d(this.getClass().getName(),"로그2"+name.toString());
-                        Log.d(this.getClass().getName(),"로그2"+userName.toString());
                         //여기까지 값이 살아있으니까 여기서 처리해야 된다!!
                     }
                 });//db.collection END
@@ -90,7 +92,6 @@ public class SearchActivity extends AppCompatActivity {
 
     public void goMain() {
 
-        Log.d(this.getClass().getName(),"로그4"+name.toString());
         Log.d(this.getClass().getName(),"로그4"+userName.toString());
 
         adapter = new SearchCustomAdapter();
@@ -118,7 +119,7 @@ public class SearchActivity extends AppCompatActivity {
                 // adapter.getItem(position)의 return 값은 Object 형
                 // 실제 Item의 자료형은 CustomDTO 형이기 때문에
                 // 형변환을 시켜야 getResId() 메소드를 호출할 수 있습니다.
-                int imgRes = ((SearchCustomDTO)adapter.getItem(position)).getResId();
+                String profileImage = ((SearchCustomDTO)adapter.getItem(position)).getProfileImage();
                 String intro = ((SearchCustomDTO)adapter.getItem(position)).getIntro();
                 String name = ((SearchCustomDTO)adapter.getItem(position)).getName();
                 String userName = ((SearchCustomDTO)adapter.getItem(position)).getUserName();
@@ -130,7 +131,9 @@ public class SearchActivity extends AppCompatActivity {
                 // new Intent(현재 Activity의 Context, 시작할 Activity 클래스)
                 Intent intent = new Intent(SearchActivity.this, UserPageActivity.class);
                 // putExtra(key, value)
-                intent.putExtra("imgRes", imgRes);
+                if(profileImage!=""){
+                    intent.putExtra("profileImage", profileImage);
+                }
                 intent.putExtra("intro", intro);
                 intent.putExtra("name", name);
                 intent.putExtra("userName", userName);
@@ -151,17 +154,20 @@ public class SearchActivity extends AppCompatActivity {
 
         Log.d(this.getClass().getName(),"로그5"+name.toString());
         Log.d(this.getClass().getName(),"로그5"+userName.toString());
-        int[] profile_img = new int[]{R.drawable.profile1, R.drawable.profile2, R.drawable.profile3, R.drawable.profile4,
-                R.drawable.profile5,R.drawable.profile6,R.drawable.profile7,R.drawable.profile8};
+//        int[] profile_img = new int[]{R.drawable.profile1, R.drawable.profile2, R.drawable.profile3, R.drawable.profile4,
+//                R.drawable.profile5,R.drawable.profile6,R.drawable.profile7,R.drawable.profile8};
 
-        Log.d(this.getClass().getName(),"로그6"+name.size());
-        for (int i = 0; i < name.size(); i++) {     //DB에서 받은 데이터를 DTO에서 set
+
+        for (int i = 0; i < name.size(); i++) {     //DB에서 받은 데이터를 DTO에 set
             SearchCustomDTO dto = new SearchCustomDTO();
+            if(profileImage.get(i)!=""){
+                Log.d(this.getClass().getName(),"search로그6 : "+i+" "+profileImage.get(i));
+                dto.setProfileImage(profileImage.get(i).toString());
+        }
             dto.setIntro(intro.get(i).toString());
             dto.setName(name.get(i).toString());
             dto.setUserName(userName.get(i).toString());
             dto.setWebsite(website.get(i).toString());
-            dto.setResId(profile_img[i%8]);
             Log.d(this.getClass().getName(),"로그7"+name.get(i).toString());
             adapter.addItem(dto);
             Log.d(this.getClass().getName(),"로그8"+dto.getName());

@@ -1,18 +1,18 @@
 package com.example.instargram_copy_project;
 
 public class SearchCustomDTO {
-    private int resId;
+    private String profileImage;
     private String intro;
     private String name;
     private String userName;
     private String website;
 
-    public int getResId() {
-        return resId;
+    public String getProfileImage() {
+        return profileImage;
     }
 
-    public void setResId(int resId) {
-        this.resId = resId;
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getIntro() {

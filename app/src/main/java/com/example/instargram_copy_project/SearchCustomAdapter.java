@@ -1,11 +1,20 @@
 package com.example.instargram_copy_project;
 
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
@@ -50,9 +59,22 @@ public class SearchCustomAdapter extends BaseAdapter {
 
         SearchCustomDTO dto = listCustom.get(position);
 
-        holder.imageView.setImageResource(dto.getResId());
+//        holder.imageView.setImageResource(dto.getResId());
+
+        Log.d(this.getClass().getName(),"searchCustom로그5"+dto.getProfileImage());
         holder.nameTextView.setText(dto.getName());
         holder.userNameTextView.setText(dto.getUserName());
+
+//        if(listViewItem.get("fileName")!=null) {
+//            test1.setText(listViewItem.get("fileName").toString());
+//            test2.setText("hi hi");
+//            FirebaseStorage.getInstance().getReference().child(listViewItem.get("fileName").toString()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Uri> task) {
+//                    Glide.with(context).load(task.getResult()).into(test3);
+//                }
+//            });
+//        }
 
         return convertView;
     }
