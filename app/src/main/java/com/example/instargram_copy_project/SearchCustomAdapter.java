@@ -1,5 +1,6 @@
 package com.example.instargram_copy_project;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,19 +44,24 @@ public class SearchCustomAdapter extends BaseAdapter {
     // 실제로 Item이 보여지는 부분
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        final Context context = parent.getContext();
         CustomViewHolder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_custom_view, null, false);
 
             holder = new CustomViewHolder();
-            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+//            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
             holder.nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
             holder.userNameTextView = (TextView) convertView.findViewById(R.id.userNameTextView);
+
+
 
             convertView.setTag(holder);
         } else {
             holder = (CustomViewHolder) convertView.getTag();
         }
+
+        final ImageView test3 = convertView.findViewById(R.id.imageView);
 
         SearchCustomDTO dto = listCustom.get(position);
 
@@ -65,16 +71,14 @@ public class SearchCustomAdapter extends BaseAdapter {
         holder.nameTextView.setText(dto.getName());
         holder.userNameTextView.setText(dto.getUserName());
 
-//        if(listViewItem.get("fileName")!=null) {
-//            test1.setText(listViewItem.get("fileName").toString());
-//            test2.setText("hi hi");
-//            FirebaseStorage.getInstance().getReference().child(listViewItem.get("fileName").toString()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Uri> task) {
-//                    Glide.with(context).load(task.getResult()).into(test3);
-//                }
-//            });
-//        }
+        if(dto.getProfileImage()!="") {
+            FirebaseStorage.getInstance().getReference().child(dto.getProfileImage()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    Glide.with(context).load(task.getResult()).into(test3);
+                }
+            });
+        }
 
         return convertView;
     }

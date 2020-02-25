@@ -93,9 +93,9 @@ public class SearchActivity extends AppCompatActivity {
     public void goMain() {
 
         Log.d(this.getClass().getName(),"로그4"+userName.toString());
+        listView = (ListView) findViewById(R.id.listView);
 
         adapter = new SearchCustomAdapter();
-        listView = (ListView) findViewById(R.id.listView);
 
         setData();
 
