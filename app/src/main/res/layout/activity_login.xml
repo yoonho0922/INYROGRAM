@@ -36,8 +36,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/thick_font"
-                android:hint = "이메일"
+                android:hint = "Email"
                 android:id = "@+id/idlogin"
                 android:textSize="30dp"
                 android:layout_marginLeft="20dp"
@@ -46,9 +45,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id = "@+id/passwordlogin"
-                android:fontFamily="@font/thick_font"
+
                 android:inputType="textPassword"
-                android:hint = "비밀번호"
+                android:hint = "Password"
                 android:textSize="30dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"/>

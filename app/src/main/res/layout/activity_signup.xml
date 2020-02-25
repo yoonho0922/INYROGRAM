@@ -31,9 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="이메일"
+            android:hint="Email"
             android:id = "@+id/idsignup"
-            android:fontFamily="@font/thick_font"
 
             android:textSize="25dp" />
 
@@ -42,17 +41,17 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:id = "@+id/passwordsignup"
-            android:fontFamily="@font/thick_font"
+            android:inputType="textPassword"
 
-            android:hint="비밀번호"
+            android:hint="Password"
             android:textSize="25dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="비밀번호 확인"
-            android:fontFamily="@font/thick_font"
+            android:hint="Confirm password"
+            android:inputType="textPassword"
 
             android:id = "@+id/repasswordsignup"
             android:textSize="25dp" />
