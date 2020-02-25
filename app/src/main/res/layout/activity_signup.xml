@@ -68,6 +68,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
                 android:backgroundTint="#FDFDFD"
+                android:textColor="#9C111111"
+
                 android:text="가입"
                 android:fontFamily="@font/thick_font"
                 android:background="@drawable/round_corner"
@@ -82,6 +84,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
+                android:textColor="#9C111111"
+
                 android:backgroundTint="#FFFDFD"
                 android:layout_weight="1"
                 android:fontFamily="@font/thick_font"
