@@ -48,8 +48,10 @@ public class SignupActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.signup_button:
                     Intent intent_profile = new Intent(SignupActivity.this, InitProfileEditActivity.class);
-                    signUp(); // 회원가입 함수 실행
-                    startActivity(intent_profile);
+                    boolean loginSuccess = signUp(); // 회원가입 함수 실행
+                    //가입조건이 충족됐을 때 프로필 수정 화면으로 넘어가는 조건이 되어야함
+                    if(loginSuccess == true)
+                        startActivity(intent_profile);
                     break;
                 case R.id.login_button1:
                     startLoginActivity(); // 로그인 창으로 간다
@@ -60,7 +62,7 @@ public class SignupActivity extends AppCompatActivity {
     };
 
     // 회원가입 함수
-    public void signUp() {
+    public boolean signUp() {
         // 이메일, 패스워드, 패스워드 확인 값을 받음
         String email = ((EditText) findViewById(R.id.idsignup)).getText().toString();
         String password = ((EditText) findViewById(R.id.passwordsignup)).getText().toString();
@@ -68,8 +70,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if (email.contains("@") && email.contains(".")) { // 아이디가 이메일 형식인지 확인
             if (password.equals(re_password) ) { // 비밀번호와 재비밀번호가 일치하는지 확인
-                if (password.length() > 6) { // 비밀번호가 여섯자리 이상인지 확인
-
+                if (password.length() >= 6) { // 비밀번호가 여섯자리 이상인지 확인
                     mAuth.createUserWithEmailAndPassword(email, password) // 변수 email과 password의 저장된 값을 전송 (mAuth는 Firebase 객체)
                             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -86,9 +87,11 @@ public class SignupActivity extends AppCompatActivity {
                                 }
                             });
                     startToast("정상적으로 회원가입 되었습니다.");
+                    return true;
                 }
                 else { // 비밀번호가 여섯자리 이상이 아닐 때
                     startToast("비밀번호는 여섯자리 이상으로 설정해주십시오.");
+
                 }
             }
             else { // 비밀번호와 재비밀번호가 다를 때
@@ -97,7 +100,10 @@ public class SignupActivity extends AppCompatActivity {
         }
         else{ // 아이디가 이메일 형식이 아닐 때
             startToast("올바른 이메일 형식을 입력해주십시오.");
+
         }
+        return false;
+
     }
 
     private void startToast(String msg) {
