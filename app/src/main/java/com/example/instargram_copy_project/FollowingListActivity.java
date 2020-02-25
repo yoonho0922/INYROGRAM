@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -35,6 +36,10 @@ public class FollowingListActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     EditText msearch_edit;
     List items;
+    Button toggleButton2;
+    Button toggleButton3;
+    Button toggleButton4;
+    Button toggleButton5;
     String msg;
 
     @Override
@@ -46,6 +51,7 @@ public class FollowingListActivity extends AppCompatActivity {
         msearch_edit = findViewById(R.id.search_edit);
         listView = findViewById(R.id.listView);
         getDB(friendUserId);
+        navbar();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -130,5 +136,54 @@ public class FollowingListActivity extends AppCompatActivity {
             }
         });
     }
+    public void navbar(){
+        toggleButton2 = findViewById(R.id.toggleButton2);
+        toggleButton3 = findViewById(R.id.toggleButton3);
+        toggleButton4 = findViewById(R.id.toggleButton4);
+        toggleButton5 = findViewById(R.id.toggleButton5);
+
+
+        toggleButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FollowingListActivity.this, SearchActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        toggleButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FollowingListActivity.this , PostingActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        toggleButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FollowingListActivity.this , NotificationActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+
+            }
+        });
+        toggleButton5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FollowingListActivity.this , MyPageActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+
+            }
+        });
+    }
+
 
 }
