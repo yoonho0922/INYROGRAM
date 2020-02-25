@@ -105,7 +105,7 @@ public class MyPageActivity extends AppCompatActivity {
         });
 
 
-        getProfileImage();
+        //getProfileImage();
         getName();
         getUserName();
         getWebsiteName();

@@ -125,7 +125,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 DocumentSnapshot document = task.getResult();
                 String profileImage = document.getString("profile_image");
                 //프사 저장 안됐을 경우
-                if(profileImage == ""){
+                if(profileImage == null){
                     return;
 //                    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 //                    StorageReference storageReference = firebaseStorage.getReference().child(profileImage); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
