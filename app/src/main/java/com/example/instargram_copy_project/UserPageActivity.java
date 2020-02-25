@@ -65,6 +65,8 @@ public class UserPageActivity extends AppCompatActivity {
         web_profile = findViewById(R.id.web_profile);
         intro_profile = findViewById(R.id.intro_profile);
 
+        followingBtn = findViewById(R.id.following_btn);
+
         // "imgRes" key로 받은 값은 int 형이기 때문에 getIntExtra(key, defaultValue);
         // 받는 값이 String 형이면 getStringExtra(key);
         user_name.setText(intent.getStringExtra("userName"));
@@ -72,36 +74,40 @@ public class UserPageActivity extends AppCompatActivity {
         web_profile.setText(intent.getStringExtra("website"));
         intro_profile.setText(intent.getStringExtra("intro"));
 
-        showProfileImage(intent.getStringExtra("userUID"));
 
-//        followingBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                FirebaseFirestore db = FirebaseFirestore.getInstance();
-//                Map<String, Integer> friend_profile = new HashMap<>();
-//                friend_profile.put("followset",1);
-//                db.collection("Following").document(user.getUid()).collection("friends")
-//                        .document(friendUserId).set(friend_profile, SetOptions.merge())
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                startToast("회원정보 저장 완료");
-//                                follower(friendUserId);
-//                                aramfollowing(friendUserId);
-//                                //회원정보가 설정되어있음을 확인
-//
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                startToast("회원정보 저장 실패");
-//                                Log.w(TAG, "Error adding document", e);//회원정보가 설정되어있음을 확인
-//                            }
-//                        });
-//            }
-//        });
+        final String userUID = intent.getStringExtra("userUID");
+        showProfileImage(userUID);
+        showFollower(userUID);
+        showFollowing(userUID);
+
+
+        followingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                Map<String, Integer> friend_profile = new HashMap<>();
+                friend_profile.put("followset",1);
+                db.collection("Following").document(user.getUid()).collection("friends")
+                        .document(userUID).set(friend_profile, SetOptions.merge())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                startToast("회원정보 저장 완료");
+                                follower(userUID);
+                                aramfollowing(userUID);
+                                //회원정보가 설정되어있음을 확인
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                startToast("회원정보 저장 실패");
+                            }
+                        });
+            }
+        });
     }
 
     public void showProfileImage(String userUID){
@@ -132,9 +138,9 @@ public class UserPageActivity extends AppCompatActivity {
         });
     }
 
-    public void showFollower(String friendUserId){ //팔로우 값을 가져옴
-        followerTv.findViewById(R.id.textView8);
-        db.collection("Follower").document(friendUserId).collection("friends")
+    public void showFollower(String userUID){ //팔로우 값을 가져옴
+        followerTv = findViewById(R.id.textView8);
+        db.collection("Follower").document(userUID).collection("friends")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -151,9 +157,9 @@ public class UserPageActivity extends AppCompatActivity {
                 });
 
     }
-    public void showFollowing(String friendUserId) { //following수 출력
+    public void showFollowing(String userUID) { //following수 출력
         followingTv = findViewById(R.id.textView9);
-        db.collection("Following").document(friendUserId).collection("friends")
+        db.collection("Following").document(userUID).collection("friends")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -168,6 +174,24 @@ public class UserPageActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void follower(String friendUserId) {//팔로우 정보
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Integer> friend_profile = new HashMap<>();
+        friend_profile.put("followset", 1);
+        db.collection("Follower").document(friendUserId).collection("friends")
+                .document(user.getUid()).set(friend_profile, SetOptions.merge());
+    }
+
+    public void aramfollowing(String friendUserId){//팔로잉한 상대 친구에게 알람 가도록 설정
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Integer> friend_profile = new HashMap<>();
+        friend_profile.put("followset",1); //팔로우 안했을때
+        db.collection("Aram").document(friendUserId).collection("friends")
+                .document(user.getUid()).set(friend_profile, SetOptions.merge());
     }
 
     public void navbar(){
