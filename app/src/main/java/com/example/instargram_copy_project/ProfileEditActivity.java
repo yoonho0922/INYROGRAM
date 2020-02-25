@@ -218,13 +218,13 @@ public class ProfileEditActivity extends AppCompatActivity {
             //Unique한 파일명을 만들자.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
             Date now = new Date();
-            String filename = formatter.format(now) + ".png";
+            String filename = "profile_image/"+formatter.format(now) + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child("profile_image/" + filename);
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child(filename);
             Map<String, Object> data = new HashMap<>();
-            data.put("image", filename);
+            data.put("profile_image", filename);
 
-            db.collection("profile_image").document(user.getUid()) //userid에 데이터저장
+            db.collection("Profile").document(user.getUid()) //userid에 데이터저장
                     .set(data, SetOptions.merge());
             //      db.collection("Profile").document("Profile_image").set(data, SetOptions.merge());
 

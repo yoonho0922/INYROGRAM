@@ -16,12 +16,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -30,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -167,32 +173,75 @@ public class PostingActivity extends AppCompatActivity {
 
 
 
-    public void posting(String fileName){
+    public void posting(String fileName) {
         String userUid = user.getUid(); //유저 UID 가져오기
         String place = ((EditText) findViewById(R.id.place)).getText().toString();
         String content = ((EditText) findViewById(R.id.content)).getText().toString();  //문구
 //        Integer likeCount = 0;  //좋아요 수
 
-        Map<String, String> post = new HashMap<>();
+        final Map<String, String> post = new HashMap<>();
         post.put("userUid", userUid);
         post.put("fileName", fileName);
-        post.put("place",place);
+        post.put("place", place);
         post.put("content", content);
 
-        DocumentReference postDoc = db.collection("Post").document();
-        postDoc.set(post, SetOptions.merge());      //DB 업로드
-        startToast(postDoc.toString() + "업로드 성공!");
+        DocumentReference postDoc = db.collection("Post").document(user.getUid()).collection("privatePost").document();
+        final String myId = postDoc.getId();
+        postDoc.set(post, SetOptions.merge());
+        DocumentReference postDoc1 = db.collection("Post").document(user.getUid()).collection("totalPost").document(myId);
+        postDoc1.set(post, SetOptions.merge());
+        db.collection("Follower").document(user.getUid()).collection("friends")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String friendid = document.getId();
+                            startToast(myId + "\n" + friendid);
+                            DocumentReference postDoc2 = db.collection("Post").document(friendid).collection("totalPost").document(myId);
+                            postDoc2.set(post, SetOptions.merge());
+
+                        }
+                    }
+                });
+
+//        startToast(postDoc.toString() + "업로드 성공!");
 
         //홈 화면으로 이동
         Intent intent = new Intent(PostingActivity.this, HomeActivity.class);
         intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
+       // startActivity(intent);
         finish();
     }
 
     private void startToast(String msg){
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
     }
+
+    public void getDB(final String id, final String myId) {
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final Map<String, String> post = new HashMap<>();
+        post.put("set", "1");
+        db.collection("Follower").document(id).collection("friends")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            final HashMap<String, Object> map = new HashMap<String, Object>();
+                            String friendid = document.getId();
+                            DocumentReference postDoc1 = db.collection("Post").document(friendid).collection("totalPost").document(myId);
+                            postDoc1.set(post, SetOptions.merge());
+
+                        }
+
+
+                }
+
+
+                });//db.collection END
+    }
+
 }
 
 

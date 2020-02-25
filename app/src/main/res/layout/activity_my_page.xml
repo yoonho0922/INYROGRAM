@@ -23,6 +23,7 @@
             android:layout_width="120dp"
             android:layout_height="24dp"
             android:gravity="center_horizontal"
+            android:fontFamily="@font/thick_font"
             android:text="unknown user"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,6 +53,8 @@
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/thick_font"
+
                     android:layout_marginTop="60dp"
                     android:text="0"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -65,11 +68,13 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/thick_font"
+
                     android:layout_marginTop="60dp"
                     android:text="0"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.848"
+                    app:layout_constraintHorizontal_bias="0.841"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.07" />
@@ -78,6 +83,8 @@
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/thick_font"
+
                     android:layout_marginTop="60dp"
                     android:text="게시물"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -91,6 +98,8 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/thick_font"
+
                     android:layout_marginTop="60dp"
                     android:text="팔로워"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -103,6 +112,8 @@
                 <TextView
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
+                    android:fontFamily="@font/thick_font"
+
                     android:layout_height="wrap_content"
                     android:layout_marginTop="60dp"
                     android:text="팔로잉"
@@ -111,7 +122,7 @@
                     app:layout_constraintHorizontal_bias="0.87"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.184" />
+                    app:layout_constraintVertical_bias="0.191" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageView"
@@ -130,20 +141,25 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/thick_font"
+
                     android:layout_marginTop="60dp"
                     android:text="0"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.441"
+                    app:layout_constraintHorizontal_bias="0.446"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.063" />
+                    app:layout_constraintVertical_bias="0.07" />
 
                 <Button
                     android:id="@+id/profileEditBtn"
-                    android:layout_width="348dp"
-                    android:layout_height="40dp"
-                    android:gravity="center_horizontal"
+                    android:layout_width="274dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/round_corner_black"
+                    android:fontFamily="@font/thick_font"
+                    android:textColor="#9C111111"
+
                     android:text="프로필 수정"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -158,6 +174,8 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:fontFamily="@font/thick_font"
+
                     app:layout_constraintHorizontal_bias="0.111"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -169,6 +187,8 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:fontFamily="@font/thick_font"
+
                     app:layout_constraintHorizontal_bias="0.111"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -178,6 +198,8 @@
                     android:id="@+id/intro_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/thick_font"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.111"
