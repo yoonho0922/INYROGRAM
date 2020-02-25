@@ -190,7 +190,7 @@ public class PostingActivity extends AppCompatActivity {
         postDoc.set(post, SetOptions.merge());
         DocumentReference postDoc1 = db.collection("Post").document(user.getUid()).collection("totalPost").document(myId);
         postDoc1.set(post, SetOptions.merge());
-        db.collection("Following").document(user.getUid()).collection("friends")
+        db.collection("Follower").document(user.getUid()).collection("friends")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
