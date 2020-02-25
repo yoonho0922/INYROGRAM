@@ -210,7 +210,7 @@ public class FriendPageActivity  extends AppCompatActivity {
 
     public void showPosting(String friendUserId) { //포스팅수 출력
         postingtv = findViewById(R.id.textView2);
-        db.collection("Posting").document(friendUserId).collection("posting")
+        db.collection("Post").document(friendUserId).collection("privatePost")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

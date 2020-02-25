@@ -39,6 +39,7 @@ public class MyPageActivity extends AppCompatActivity {
     TextView user_name;
     TextView web_profile;
     TextView intro_profile;
+    TextView postingtv;
     ImageView imageView;
     TextView follower;
     TextView posting;
@@ -229,8 +230,8 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
     public void showPosting() { //포스팅수 출력
-        posting = findViewById(R.id.textView2);
-        db.collection("Posting").document(user.getUid()).collection("posting")
+        postingtv = findViewById(R.id.textView2);
+        db.collection("Post").document(user.getUid()).collection("privatePost")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -241,7 +242,7 @@ public class MyPageActivity extends AppCompatActivity {
                                 posting_su += 1;
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }
-                            posting.setText(posting_su.toString());
+                            postingtv.setText(posting_su.toString());
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
