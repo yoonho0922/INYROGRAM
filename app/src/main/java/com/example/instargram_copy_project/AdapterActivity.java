@@ -56,6 +56,8 @@ public class AdapterActivity extends BaseAdapter {
         final TextView userNameUnder  = convertView.findViewById(R.id.userName_under);
         final TextView placeTv = convertView.findViewById(R.id.placetextView);
         final TextView contentTv = convertView.findViewById(R.id.content_textView);
+
+        final ImageView profileImageView = convertView.findViewById(R.id.picture_profile);
         final ImageView test3 = convertView.findViewById(R.id.picture_posting);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
@@ -77,6 +79,17 @@ public class AdapterActivity extends BaseAdapter {
                     DocumentSnapshot document = task.getResult();
                     userNameUp.setText(document.getString("userName"));//
                     userNameUnder.setText(document.getString("userName"));
+
+                    //프로필 사진
+                    String profileImage = document.getString("profile_image");
+                    if(profileImage != "") {
+                        FirebaseStorage.getInstance().getReference().child(profileImage).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                Glide.with(context).load(task.getResult()).into(profileImageView);
+                            }
+                        });
+                    }
                 }
             });
 
