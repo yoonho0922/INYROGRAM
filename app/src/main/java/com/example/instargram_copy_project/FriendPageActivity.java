@@ -73,27 +73,48 @@ public class FriendPageActivity  extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Integer> friend_profile = new HashMap<>();
-                friend_profile.put("followset",1);
-                db.collection("Following").document(user.getUid()).collection("friends")
-                        .document(friendUserId).set(friend_profile, SetOptions.merge())
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                startToast("회원정보 저장 완료");
-                                follower(friendUserId);
-                                aramfollowing(friendUserId);
-                                //회원정보가 설정되어있음을 확인
+                if(following.getText().equals("팔로잉 취소"))
+                {
+                    db.collection("Following").document(user.getUid()).collection("friends").document(friendUserId)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    startToast("팔로잉 취소 완료");
+                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error deleting document", e);
+                                }
+                            });
+                }
+                else {
+                    friend_profile.put("followset", 1);
+                    db.collection("Following").document(user.getUid()).collection("friends")
+                            .document(friendUserId).set(friend_profile, SetOptions.merge())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    startToast("회원정보 저장 완료");
+                                    follower(friendUserId);
+                                    aramfollowing(friendUserId);
+                                    //회원정보가 설정되어있음을 확인
 
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                startToast("회원정보 저장 실패");
-                                Log.w(TAG, "Error adding document", e);//회원정보가 설정되어있음을 확인
-                            }
-                        });
-            }
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    startToast("회원정보 저장 실패");
+                                    Log.w(TAG, "Error adding document", e);//회원정보가 설정되어있음을 확인
+                                }
+                            });
+                }
+                }
+
         });
         followertv.setOnClickListener(new View.OnClickListener(){
             @Override
