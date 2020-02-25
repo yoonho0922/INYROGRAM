@@ -72,7 +72,7 @@ public class FollowerListActivity extends AppCompatActivity {
     }
 
     public void getDB(final String id) {
-        items = new ArrayList<Object>();
+        items = new ArrayList<Map>();
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Follower").document(id).collection("friends")
                 .get()
@@ -93,6 +93,7 @@ public class FollowerListActivity extends AppCompatActivity {
                                     map.put("name", name);
                                     map.put("userId", document.getId());
                                     items.add(map);
+                                    goMain(items);
                                     }
 
 
@@ -101,7 +102,7 @@ public class FollowerListActivity extends AppCompatActivity {
                             });
 
                         }
-                        goMain(items);
+
                     }
                 });//db.collection END
     }

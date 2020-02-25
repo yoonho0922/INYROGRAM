@@ -46,10 +46,9 @@ public class FollowingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followinglist);
+        listView = findViewById(R.id.listView);
         final String friendUserId = getIntent().getExtras().getString("ID");
         getFrinedName(friendUserId);
-        msearch_edit = findViewById(R.id.search_edit);
-        listView = findViewById(R.id.listView);
         getDB(friendUserId);
         navbar();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,7 +66,7 @@ public class FollowingListActivity extends AppCompatActivity {
     }
 
     public void getDB(final String id) {
-        items = new ArrayList<Object>();
+        items = new ArrayList<Map>();
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Following").document(id).collection("friends")
                 .get()
@@ -83,27 +82,23 @@ public class FollowingListActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     DocumentSnapshot document = task.getResult();
                                     String name = document.getString("name");
+
                                     String userName = document.getString("userName");
                                     map.put("userName", userName);
                                     map.put("name", name);
                                     map.put("userId", document.getId());
                                     items.add(map);
+                                    goMain(items);
                                 }
-
-
-                                //사진도 업데이트
-                                //if(userName.contains(s) || name.contains(s)) {
                             });
 
                         }
-                        goMain(items);
                     }
                 });//db.collection END
     }
 
     public void goMain(List items) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        listView = findViewById(R.id.listView);
         StorageReference storageReference = firebaseStorage.getReference().child("fileName"); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
         storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -113,6 +108,7 @@ public class FollowingListActivity extends AppCompatActivity {
         });
         String[] keys = new String[]{"userName", "name"};
         int[] ids = new int[]{R.id.nameTextView, R.id.userNameTextView};
+        listView = findViewById(R.id.listView);
 
 
         SimpleAdapter customAdapter = new SimpleAdapter(this, items, R.layout.search_custom_view, keys, ids);
