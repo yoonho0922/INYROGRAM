@@ -44,8 +44,6 @@ public class PostingActivity extends AppCompatActivity {
 
     private static final String TAG = "MemberInfoSetting";
 
-    EditText place;
-    EditText content;
     Button gallery_btn;
     Button camera_btn;
     Button posting_btn;

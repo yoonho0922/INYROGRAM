@@ -45,13 +45,6 @@ public class HomeActivity extends AppCompatActivity {
     //// 사용자 정보 (프로필사진, ID, 장소, 내용) ////
     ListView listView;
 
-    int[] user_img = new int[]{R.drawable.dog1, R.drawable.dog2, R.drawable.dog3}; // 프로필 사진
-    String[] user_id = new String[]{"lim_jaeyoung0428", "yoon_nno", "sje__22"}; // 사용자 ID
-    String[] user_place = new String[]{"Sadang Station", "Seoul City Hall", "Itaewon"}; // 장소
-    int[] posting_picture = new int[]{R.drawable.postingex1, R.drawable.postingex2, R.drawable.postingex3}; // 포스팅 사진
-    String[] user_posting = new String[]{"Have a nice day :)", "Hello World!", "고기 먹고 싶다 하아아아아"}; // 글 내용
-    String[] like = new String[]{"좋아요 360개", "좋아요 100,000개", "좋아요 100개"}; // 좋아요 개수 (일단 넣어봄 사실 동적으로 해야하는데)
-
     ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 
 
@@ -114,7 +107,6 @@ public class HomeActivity extends AppCompatActivity {
                                 map.put("userUID", userUID);
 
                                 items.add(map);
-                                startToast(items.toString());
 
                             }
 //                            goMain(items);

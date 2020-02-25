@@ -25,11 +25,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/idtextView_up"
+                android:id="@+id/userName_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="TextView"
+                android:text="userName"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
                 android:textStyle="bold" />
@@ -38,8 +38,8 @@
                 android:id="@+id/placetextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:text="TextView" />
+                android:text="place"
+                android:textColor="#000000" />
         </LinearLayout>
     </LinearLayout>
 
@@ -102,12 +102,12 @@
 
         <TextView
             android:id="@+id/liketextView"
-            android:textColor="#000000"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="TextView" />
+            android:text="49명이 좋아합니다"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,22 +115,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/idtextView_under"
-                android:textColor="#000000"
+                android:id="@+id/userName_under"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="0.02"
-                android:text="TextView"
+                android:text="userName"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/postingtextView"
-                android:textColor="#000000"
+                android:id="@+id/content_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="content"
+                android:textColor="#000000" />
         </LinearLayout>
 
     </LinearLayout>
