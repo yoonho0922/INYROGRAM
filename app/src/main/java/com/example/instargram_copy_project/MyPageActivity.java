@@ -93,7 +93,10 @@ public class MyPageActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot document = task.getResult();
                 String profileImage = document.getString("profile_image");
-                Log.d(this.getClass().getName(),"myPage로그1"+ profileImage);
+                //프사 저장 안됐을 경우
+                if(profileImage == ""){
+                    return;
+                }
 
                 //DB에서 사진 가져와서 이미지 넣기
                 FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
