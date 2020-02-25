@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -72,6 +73,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
 
         getProfile();   //현재 정보 가져오기
+        getProfileImage();
 
         profileEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +113,39 @@ public class ProfileEditActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.stay, R.anim.sliding_down);
 
 
+
+            }
+        });
+    }
+    public void getProfileImage(){
+        imageView = findViewById(R.id.imageView);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                String profileImage = document.getString("profile_image");
+                //프사 저장 안됐을 경우
+                if(profileImage == ""){
+                    return;
+//                    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+//                    StorageReference storageReference = firebaseStorage.getReference().child(profileImage); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
+//                    storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Uri> task) {
+//                            Glide.with(ProfileEditActivity.this).load("unknownImg.png").into(imageView);
+//                        }
+//                    });
+                }
+
+                //DB에서 사진 가져와서 이미지 넣기
+                FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+                StorageReference storageReference = firebaseStorage.getReference().child(profileImage); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
+                storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        Glide.with(ProfileEditActivity.this).load(task.getResult()).into(imageView);
+                    }
+                });
 
             }
         });
