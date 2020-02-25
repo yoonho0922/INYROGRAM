@@ -45,8 +45,10 @@ public class UserPageActivity extends AppCompatActivity {
     TextView web_profile;
     TextView intro_profile;
 
-    TextView followerTv;
-    TextView followingTv;
+    TextView followerNumTv;
+    TextView followerTextTv;
+    TextView followingNumTv;
+    TextView followingTextTv;
     Button followingBtn;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -60,28 +62,26 @@ public class UserPageActivity extends AppCompatActivity {
 
         // MainActivity에서 보낸 imgRes를 받기위해 getIntent()로 초기화
         Intent intent = getIntent();
-        user_name = findViewById(R.id.user_name);
-        name_profile = findViewById(R.id.name_profile);
-        web_profile = findViewById(R.id.web_profile);
-        intro_profile = findViewById(R.id.intro_profile);
 
+        followerTextTv = findViewById(R.id.textView11);
+        followerNumTv = findViewById(R.id.textView8);
+        followingTextTv = findViewById(R.id.textView12);
+        followingNumTv = findViewById(R.id.textView9);
         followingBtn = findViewById(R.id.following_btn);
 
         // "imgRes" key로 받은 값은 int 형이기 때문에 getIntExtra(key, defaultValue);
         // 받는 값이 String 형이면 getStringExtra(key);
-        user_name.setText(intent.getStringExtra("userName"));
-        name_profile.setText(intent.getStringExtra("name"));
-        web_profile.setText(intent.getStringExtra("website"));
-        intro_profile.setText(intent.getStringExtra("intro"));
+
 
 
         final String userUID = intent.getStringExtra("userUID");
+        showTextData(userUID);
         showProfileImage(userUID);
         showFollower(userUID);
         showFollowing(userUID);
 
 
-        followerTv.setOnClickListener(new View.OnClickListener(){
+        followerNumTv.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent oIntent = new Intent(UserPageActivity.this, FollowerListActivity.class);
@@ -89,7 +89,26 @@ public class UserPageActivity extends AppCompatActivity {
                 startActivity(oIntent);
             }
         });
-        followingTv.setOnClickListener(new View.OnClickListener(){
+        followerNumTv.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent oIntent = new Intent(UserPageActivity.this, FollowerListActivity.class);
+                oIntent.putExtra("ID",userUID);
+                startActivity(oIntent);
+            }
+        });
+
+
+        followingTextTv.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent oIntent = new Intent(UserPageActivity.this, FollowingListActivity.class);
+                oIntent.putExtra("ID",userUID);
+                oIntent.putExtra("ID",userUID);
+                startActivity(oIntent);
+            }
+        });
+        followingNumTv.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent oIntent = new Intent(UserPageActivity.this, FollowingListActivity.class);
@@ -97,6 +116,7 @@ public class UserPageActivity extends AppCompatActivity {
                 startActivity(oIntent);
             }
         });
+
 
         followingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +143,26 @@ public class UserPageActivity extends AppCompatActivity {
                                 startToast("회원정보 저장 실패");
                             }
                         });
+            }
+        });
+    }
+
+    public void showTextData(String userUID){
+        DocumentReference docRef = db.collection("Profile").document(userUID); //현재 유저의 프로필 접근
+
+        user_name = findViewById(R.id.user_name);
+        name_profile = findViewById(R.id.name_profile);
+        web_profile = findViewById(R.id.web_profile);
+        intro_profile = findViewById(R.id.intro_profile);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                user_name.setText(document.getString("userName"));//
+                name_profile.setText(document.getString("name"));//
+                web_profile.setText(document.getString("website"));//
+                intro_profile.setText(document.getString("intro"));//
             }
         });
     }
@@ -156,7 +196,6 @@ public class UserPageActivity extends AppCompatActivity {
     }
 
     public void showFollower(String userUID){ //팔로우 값을 가져옴
-        followerTv = findViewById(R.id.textView8);
         db.collection("Follower").document(userUID).collection("friends")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -167,7 +206,7 @@ public class UserPageActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 follower_su += 1;
                             }
-                            followerTv.setText(follower_su.toString());
+                            followerNumTv.setText(follower_su.toString());
                         } else {
                         }
                     }
@@ -175,7 +214,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     }
     public void showFollowing(String userUID) { //following수 출력
-        followingTv = findViewById(R.id.textView9);
+
         db.collection("Following").document(userUID).collection("friends")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -186,7 +225,7 @@ public class UserPageActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 following_su += 1;
                             }
-                            followingTv.setText(following_su.toString());
+                            followingNumTv.setText(following_su.toString());
                         } else {
                         }
                     }
