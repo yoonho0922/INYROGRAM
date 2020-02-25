@@ -61,6 +61,7 @@ public class FriendPageActivity  extends AppCompatActivity {
         followingtv1 = findViewById(R.id.textView12);
         followertv = findViewById(R.id.textView8);
         final String friendUserId = getIntent().getExtras().getString("Friend");
+        Log.d(this.getClass().getName(),"friend로그10"+friendUserId);
         getFrinedName(friendUserId);
         showFollower(friendUserId);
         showFollowing(friendUserId);
