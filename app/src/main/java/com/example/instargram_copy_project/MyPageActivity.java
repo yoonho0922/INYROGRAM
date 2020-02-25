@@ -1,6 +1,7 @@
 package com.example.instargram_copy_project;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +23,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class MyPageActivity extends AppCompatActivity {
 
@@ -66,6 +70,7 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
+        getProfileImage();
         getName();
         getUserName();
         getWebsiteName();
@@ -79,6 +84,32 @@ public class MyPageActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void getProfileImage(){
+        imageView = findViewById(R.id.imageView);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                String profileImage = document.getString("profile_image");
+                //프사 저장 안됐을 경우
+                if(profileImage == ""){
+                    return;
+                }
+
+                //DB에서 사진 가져와서 이미지 넣기
+                FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+                StorageReference storageReference = firebaseStorage.getReference().child(profileImage); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
+                storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        Glide.with(MyPageActivity.this).load(task.getResult()).into(imageView);
+                    }
+                });
+
+            }
+        });
     }
 
     public void getName(){    //현재 name 가지고오는 함수
