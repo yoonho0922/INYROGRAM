@@ -49,9 +49,6 @@ public class MyPageActivity extends AppCompatActivity {
     DocumentReference docRef = db.collection("Profile").document(user.getUid()); //현재 유저의 프로필 접근
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +56,6 @@ public class MyPageActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
 
         navbar();
-
 
         profileEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,11 +74,6 @@ public class MyPageActivity extends AppCompatActivity {
         showFollower();
         showFollowing();
         showPosting();
-
-
-
-
-
 
     }
 
