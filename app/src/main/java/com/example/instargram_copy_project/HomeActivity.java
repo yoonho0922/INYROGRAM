@@ -19,6 +19,8 @@ import android.widget.ToggleButton;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -91,8 +93,9 @@ public class HomeActivity extends AppCompatActivity {
 
     public void getDB(){
         items = new ArrayList<Map>();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Post")
+        db.collection("Post").document(user.getUid()).collection("totalPost")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -103,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
                                 String content = document.getString("content");
                                 String fileName = document.getString("fileName");
                                 String place = document.getString("place");
-                                String userUID = document.getString("userUID");
+                                String userUID = document.getString("userUid");
 
                                 map.put("content", content);
                                 map.put("fileName", fileName);
@@ -111,6 +114,8 @@ public class HomeActivity extends AppCompatActivity {
                                 map.put("userUID", userUID);
 
                                 items.add(map);
+                                startToast(items.toString());
+
                             }
 //                            goMain(items);
 
@@ -195,5 +200,8 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void startToast(String msg){
+        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
     }
 }
