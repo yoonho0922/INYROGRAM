@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,16 +13,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +51,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +60,6 @@ public class UserPageActivity extends AppCompatActivity {
 
         // MainActivity에서 보낸 imgRes를 받기위해 getIntent()로 초기화
         Intent intent = getIntent();
-        imageView = findViewById(R.id.imageView);
         user_name = findViewById(R.id.user_name);
         name_profile = findViewById(R.id.name_profile);
         web_profile = findViewById(R.id.web_profile);
@@ -61,11 +67,12 @@ public class UserPageActivity extends AppCompatActivity {
 
         // "imgRes" key로 받은 값은 int 형이기 때문에 getIntExtra(key, defaultValue);
         // 받는 값이 String 형이면 getStringExtra(key);
-        imageView.setImageResource(intent.getIntExtra("imgRes", 0));
         user_name.setText(intent.getStringExtra("userName"));
         name_profile.setText(intent.getStringExtra("name"));
         web_profile.setText(intent.getStringExtra("website"));
         intro_profile.setText(intent.getStringExtra("intro"));
+
+        showProfileImage(intent.getStringExtra("userUID"));
 
 //        followingBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -95,6 +102,34 @@ public class UserPageActivity extends AppCompatActivity {
 //                        });
 //            }
 //        });
+    }
+
+    public void showProfileImage(String userUID){
+        DocumentReference docRef = db.collection("Profile").document(userUID);
+        imageView = findViewById(R.id.imageView);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                String profileImage = document.getString("profile_image");
+                //프사 저장 안됐을 경우
+                if(profileImage == ""){
+                    return;
+                }
+
+                //DB에서 사진 가져와서 이미지 넣기
+                FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+                StorageReference storageReference = firebaseStorage.getReference().child(profileImage); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
+                storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        Glide.with(UserPageActivity.this).load(task.getResult()).into(imageView);
+                    }
+                });
+
+            }
+        });
     }
 
     public void showFollower(String friendUserId){ //팔로우 값을 가져옴

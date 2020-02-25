@@ -32,6 +32,7 @@ public class SearchActivity extends AppCompatActivity {
     List name;
     List userName;
     List website;
+    List userUID;
 
     Button toggleButton1;
     Button toggleButton3;
@@ -61,6 +62,7 @@ public class SearchActivity extends AppCompatActivity {
         name = new ArrayList<String>();
         userName = new ArrayList<String>();
         website = new ArrayList<String>();
+        userUID = new ArrayList<String>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Profile")
@@ -78,7 +80,8 @@ public class SearchActivity extends AppCompatActivity {
                                 name.add(document.getString("name"));
                                 userName.add(document.getString("userName"));
                                 website.add(document.getString("website"));
-                                Log.d(this.getClass().getName(),"searchActivity로그1"+profileImage.toString());
+                                userUID.add(document.getId());
+                                Log.d(this.getClass().getName(),"searchActivity로그1"+document.getId());
                             }
                         } else {
                             //에러시
@@ -124,6 +127,7 @@ public class SearchActivity extends AppCompatActivity {
                 String name = ((SearchCustomDTO)adapter.getItem(position)).getName();
                 String userName = ((SearchCustomDTO)adapter.getItem(position)).getUserName();
                 String website = ((SearchCustomDTO)adapter.getItem(position)).getWebsite();
+                String userUID = ((SearchCustomDTO)adapter.getItem(position)).getUserUID();
 
                 Log.d(this.getClass().getName(),"로그10"+intro);
                 Log.d(this.getClass().getName(),"로그10"+((SearchCustomDTO)adapter.getItem(position)).getIntro());
@@ -138,6 +142,7 @@ public class SearchActivity extends AppCompatActivity {
                 intent.putExtra("name", name);
                 intent.putExtra("userName", userName);
                 intent.putExtra("website", website);
+                intent.putExtra("userUID", userUID);
 
                 Log.d(this.getClass().getName(),"로그11"+intent.getStringExtra("intro"));
                 Log.d(this.getClass().getName(),"로그11"+intent.getIntExtra("imgRes", 0));
@@ -168,6 +173,7 @@ public class SearchActivity extends AppCompatActivity {
             dto.setName(name.get(i).toString());
             dto.setUserName(userName.get(i).toString());
             dto.setWebsite(website.get(i).toString());
+            dto.setUserUID(userUID.get(i).toString());
             Log.d(this.getClass().getName(),"로그7"+name.get(i).toString());
             adapter.addItem(dto);
             Log.d(this.getClass().getName(),"로그8"+dto.getName());

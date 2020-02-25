@@ -6,6 +6,7 @@ public class SearchCustomDTO {
     private String name;
     private String userName;
     private String website;
+    private String userUID;
 
     public String getProfileImage() {
         return profileImage;
@@ -45,5 +46,13 @@ public class SearchCustomDTO {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getUserUID() {
+        return userUID;
+    }
+
+    public void setUserUID(String userUID) {
+        this.userUID = userUID;
     }
 }
