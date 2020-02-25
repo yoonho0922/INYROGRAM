@@ -81,6 +81,23 @@ public class UserPageActivity extends AppCompatActivity {
         showFollowing(userUID);
 
 
+        followerTv.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent oIntent = new Intent(UserPageActivity.this, FollowerListActivity.class);
+                oIntent.putExtra("ID",userUID);
+                startActivity(oIntent);
+            }
+        });
+        followingTv.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent oIntent = new Intent(UserPageActivity.this, FollowingListActivity.class);
+                oIntent.putExtra("ID",userUID);
+                startActivity(oIntent);
+            }
+        });
+
         followingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
