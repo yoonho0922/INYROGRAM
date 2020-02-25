@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/thick_font"
-
+                    android:clickable="true"
                     android:layout_marginTop="60dp"
                     android:text="0"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/thick_font"
-
+                    android:clickable="true"
                     android:layout_marginTop="60dp"
                     android:text="0"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/thick_font"
-
+                    android:clickable="true"
                     android:layout_marginTop="60dp"
                     android:text="게시물"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/thick_font"
-
+                    android:clickable="true"
                     android:layout_marginTop="60dp"
                     android:text="팔로워"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -113,7 +113,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:fontFamily="@font/thick_font"
-
+                    android:clickable="true"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="60dp"
                     android:text="팔로잉"
