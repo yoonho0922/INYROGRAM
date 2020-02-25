@@ -66,6 +66,7 @@ public class FriendPageActivity  extends AppCompatActivity {
         showFollower(friendUserId);
         showFollowing(friendUserId);
         showPosting(friendUserId);
+        showUnfollowing(friendUserId);
         following.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,6 +278,30 @@ public class FriendPageActivity  extends AppCompatActivity {
 
     private void startToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showUnfollowing(final String friend_info) { //만약 user가 해당 view 친구를 팔로잉 했을때 button에 언팔로워 라고 뜨게 한다.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Following").document(user.getUid()).collection("friends")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getId().equals(friend_info)) {
+                                    following = findViewById(R.id.following);
+                                    following.setText("팔로잉 취소");
+                                }
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+
+                            }else{
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                });
     }
 
 }
