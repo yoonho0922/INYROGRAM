@@ -43,6 +43,8 @@ public class MyPageActivity extends AppCompatActivity {
     TextView follower;
     TextView posting;
     TextView following;
+    TextView followertv;
+    TextView followingtv;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -54,6 +56,10 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
         imageView = findViewById(R.id.imageView);
+        following=findViewById(R.id.textView9);
+        follower=findViewById(R.id.textView8);
+        followertv=findViewById(R.id.textView11);
+        followingtv=findViewById(R.id.textView12);
 
         navbar();
 
@@ -65,6 +71,39 @@ public class MyPageActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.sliding_up, R.anim.stay);
             }
         });
+        follower.setOnClickListener(new View.OnClickListener(){
+            @Override
+                    public void onClick(View v){
+                Intent oIntent=new Intent(MyPageActivity.this,FollowerListActivity.class);
+                oIntent.putExtra("ID",user.getUid());
+                startActivity(oIntent);
+            }
+        });
+        followertv.setOnClickListener(new View.OnClickListener(){
+            @Override
+                    public void onClick(View v){
+                Intent oIntent=new Intent(MyPageActivity.this,FollowerListActivity.class);
+                oIntent.putExtra("ID",user.getUid());
+                startActivity(oIntent);
+            }
+        });
+        following.setOnClickListener(new View.OnClickListener(){
+            @Override
+                    public void onClick(View v){
+                Intent oIntent=new Intent(MyPageActivity.this,FollowingListActivity.class);
+                oIntent.putExtra("ID",user.getUid());
+                startActivity(oIntent);
+            }
+        });
+        followingtv.setOnClickListener(new View.OnClickListener(){
+            @Override
+                    public void onClick(View v){
+                Intent oIntent=new Intent(MyPageActivity.this,FollowingListActivity.class);
+                oIntent.putExtra("ID",user.getUid());
+                startActivity(oIntent);
+            }
+        });
+
 
         getProfileImage();
         getName();
