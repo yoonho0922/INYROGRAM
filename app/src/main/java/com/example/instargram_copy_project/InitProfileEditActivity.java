@@ -99,7 +99,7 @@ public class InitProfileEditActivity extends AppCompatActivity {
         String userName = ((EditText) findViewById(R.id.userName)).getText().toString();//정보를 가지고옴
         String website = ((EditText) findViewById(R.id.website)).getText().toString();
         String intro = ((EditText) findViewById(R.id.intro)).getText().toString();
-        String profileImage = "unknownImg.png";
+        String profileImage = "profile_image/20200216_5018.png";    //defualt 이미지
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -108,7 +108,7 @@ public class InitProfileEditActivity extends AppCompatActivity {
         profile.put("userName", userName);
         profile.put("website", website);
         profile.put("intro", intro);
-        profile.put("profileImage",profileImage);
+        profile.put("profile_image",profileImage);
         //회원정보가 한번이라도 저장이 되었다
 
 
