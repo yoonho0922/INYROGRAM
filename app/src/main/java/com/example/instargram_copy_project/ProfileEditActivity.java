@@ -97,6 +97,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 intent.putExtra(" ", name.getText().toString());
                 proFile();
                 uploadFile();
+                startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.stay, R.anim.sliding_down);
 
@@ -204,10 +205,18 @@ public class ProfileEditActivity extends AppCompatActivity {
         String intro = ((EditText) findViewById(R.id.intro)).getText().toString();
 //        String profile_image = ((EditText) findViewById(R.id.imageView)).getText().toString();
 
-
-        //db 객체 생성하는거 전연변수로 처리해서 주석처리했습니다
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if(name == null){
+            name = "name";
+        }
+        if(userName == null){
+            userName = "userName";
+        }
+        if(website == null){
+            website = "website";
+        }
+        if(intro == null){
+            intro = "intro";
+        }
 
         Map<String, String> profile = new HashMap<>();
         profile.put("name", name);
@@ -293,7 +302,6 @@ public class ProfileEditActivity extends AppCompatActivity {
                         }
                     });
         } else {
-            Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
         }
     }
     private void startToast(String msg){
