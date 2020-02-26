@@ -133,7 +133,6 @@ public class NotificationActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     DocumentSnapshot document = task.getResult();
                                     String userName = document.getString("userName");
-                                    startToast(userName);
                                     map.put("userName", userName);
                                     map.put("name", "님이 회원님을 팔로우 하기 시작했습니다.");
                                     map.put("userId", document.getId());
