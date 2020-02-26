@@ -12,9 +12,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/instagram"
+        android:icon="@mipmap/ic_instalogo"
         android:label="Inyrogram"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_instalogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MyPageAdapterActivity"></activity>
