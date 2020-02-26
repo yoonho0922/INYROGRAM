@@ -59,7 +59,6 @@ public class InitProfileEditActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         finishBtn = findViewById(R.id.finishBtn);
         profileEditBtn = findViewById(R.id.profileEditBtn);
-
         finishBtn = (Button)findViewById(R.id.finishBtn);
         name = (EditText)findViewById(R.id.name);
 
@@ -92,22 +91,7 @@ public class InitProfileEditActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //request코드가 0이고 OK를 선택했고 data에 뭔가가 들어 있다면
-        if (requestCode == 0 && resultCode == RESULT_OK) {
-            filePath = data.getData();
-            Log.d(TAG, "uri:" + String.valueOf(filePath));
-            try {
-                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                imageView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
 
     public void proFile(){ //입력한 프로필 저장하는 함수
@@ -146,6 +130,22 @@ public class InitProfileEditActivity extends AppCompatActivity {
                 });
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //request코드가 0이고 OK를 선택했고 data에 뭔가가 들어 있다면
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+            filePath = data.getData();
+            Log.d(TAG, "uri:" + String.valueOf(filePath));
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     private void uploadFile() {
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
@@ -163,15 +163,15 @@ public class InitProfileEditActivity extends AppCompatActivity {
             //Unique한 파일명을 만들자.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
             Date now = new Date();
-            String filename = formatter.format(now) + ".png";
+            String filename = "profile_image/"+formatter.format(now) + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child("images/" + filename);
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child(filename);
             Map<String, Object> data = new HashMap<>();
-            data.put("image", filename);
+            data.put("profile_image", filename);
 
-            db.collection("Profile_image").document(user.getUid()) //userid에 데이터저장
+            db.collection("Profile").document(user.getUid()) //userid에 데이터저장
                     .set(data, SetOptions.merge());
-            db.collection("Profile").document("Profile_image").set(data, SetOptions.merge());
+            //      db.collection("Profile").document("Profile_image").set(data, SetOptions.merge());
 
             //올라가거라...
             storageRef.putFile(filePath)
