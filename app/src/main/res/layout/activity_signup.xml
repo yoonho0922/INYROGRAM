@@ -89,7 +89,7 @@
 
                 android:backgroundTint="#FFFDFD"
                 android:layout_weight="1"
-                android:fontFamily="@font/thick_font"
+                android:fontFamily="@font/antipastopropextraboldtrial"
                 android:background="@drawable/round_corner"
                 android:text="LogIn"
                 android:textAlignment="center"
