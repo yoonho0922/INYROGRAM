@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MyPageActivity extends AppCompatActivity {
 
@@ -46,6 +53,8 @@ public class MyPageActivity extends AppCompatActivity {
     TextView following;
     TextView followertv;
     TextView followingtv;
+    ArrayList items;
+    GridView gridView;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -61,6 +70,22 @@ public class MyPageActivity extends AppCompatActivity {
         follower=findViewById(R.id.textView8);
         followertv=findViewById(R.id.textView11);
         followingtv=findViewById(R.id.textView12);
+
+        getDB();
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String, String> selection = (Map<String, String>) parent.getItemAtPosition(position);
+                String doc_info = selection.get("docId");
+                startToast(doc_info);
+
+                //Intent oIntent = new Intent(MyPageActivity.this, PostPrivate.class);
+                //oIntent.putExtra("Friend",Friend_info);
+                //startActivity(oIntent);
+
+            }
+        });
+
 
         navbar();
 
@@ -114,6 +139,36 @@ public class MyPageActivity extends AppCompatActivity {
         showFollower();
         showFollowing();
         showPosting();
+
+    }
+
+    public void getDB(){
+        items = new ArrayList<Map>();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Post").document(user.getUid()).collection("privatePost")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            HashMap<String, String> map = new HashMap<String, String>();
+                            String fileName = document.getString("fileName");
+                            String docId = document.getId();
+                            map.put("fileName", fileName);
+                            map.put("docId",docId);
+                            items.add(map);
+                        }
+                        gridView = findViewById(R.id.gridView);
+                        MyPageAdapterActivity customAdapter = new MyPageAdapterActivity(items);
+                        gridView.setAdapter(customAdapter);
+
+                    }
+                });//db.collection END
+
+
+
+
 
     }
 
