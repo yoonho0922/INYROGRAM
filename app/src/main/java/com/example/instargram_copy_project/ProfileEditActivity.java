@@ -229,7 +229,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        startToast("회원정보 저장 실패");
+//                        startToast("회원정보 저장 실패");
                         Log.w(TAG, "Error adding document", e);//회원정보가 설정되어있음을 확인
                     }
                 });
@@ -247,8 +247,8 @@ public class ProfileEditActivity extends AppCompatActivity {
 
             //storage
             FirebaseStorage storage = FirebaseStorage.getInstance();
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
+            final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             //Unique한 파일명을 만들자.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
@@ -256,11 +256,10 @@ public class ProfileEditActivity extends AppCompatActivity {
             String filename = "profile_image/"+formatter.format(now) + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
             StorageReference storageRef = storage.getReferenceFromUrl("gs://inyrogram.appspot.com").child(filename);
-            Map<String, Object> data = new HashMap<>();
+            final Map<String, Object> data = new HashMap<>();
             data.put("profile_image", filename);
 
-            db.collection("Profile").document(user.getUid()) //userid에 데이터저장
-                    .set(data, SetOptions.merge());
+
             //      db.collection("Profile").document("Profile_image").set(data, SetOptions.merge());
 
             //올라가거라...
@@ -269,6 +268,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            db.collection("Profile").document(user.getUid()) //userid에 데이터저장
+                                    .set(data, SetOptions.merge());
                             progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                             Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
                         }
