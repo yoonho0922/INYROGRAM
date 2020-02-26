@@ -128,7 +128,8 @@ public class FriendPageActivity  extends AppCompatActivity {
                 Map<String, String> selection = (Map<String, String>) parent.getItemAtPosition(position);
                 String doc_info = selection.get("docId");
                 Intent oIntent = new Intent(FriendPageActivity.this, PrivatePostActivity.class);
-                oIntent.putExtra("Friend",doc_info);
+                oIntent.putExtra("docId",doc_info);
+                oIntent.putExtra("Friend", friendUserId);
                 startActivity(oIntent);
 
             }

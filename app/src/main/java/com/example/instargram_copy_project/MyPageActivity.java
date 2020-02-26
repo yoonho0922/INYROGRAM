@@ -85,6 +85,18 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
         });
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String, String> selection = (Map<String, String>) parent.getItemAtPosition(position);
+                String doc_info = selection.get("docId");
+                Intent oIntent = new Intent(MyPageActivity.this, PrivatePostActivity.class);
+                oIntent.putExtra("docId",doc_info);
+                oIntent.putExtra("Friend", user.getUid());
+                startActivity(oIntent);
+
+            }
+        });
 
 
         navbar();
