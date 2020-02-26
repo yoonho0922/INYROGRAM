@@ -125,16 +125,7 @@ public class SignupActivity extends AppCompatActivity {
         db.collection("Profile").document(user.getUid())
                 .set(following_follower, SetOptions.merge());
     }
-    public void init_profile(){ //프로필 " "로 모두 초기화
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Map<String, String> following_follower = new HashMap<>();
-        following_follower.put("follower", "0");
-        following_follower.put("following", "0");
-        following_follower.put("posting", "0");
-        db.collection("Profile").document(user.getUid())
-                .set(following_follower, SetOptions.merge());
-    }
+
 
 
 

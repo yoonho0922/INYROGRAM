@@ -11,15 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:clickable="true"
+        android:background="@drawable/border_layout_under"
+
         android:weightSum="10">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="59dp"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:src="@drawable/icon_search"
             android:layout_centerVertical="true"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:src="@drawable/icon_search" />
 
         <EditText
             android:layout_width="match_parent"

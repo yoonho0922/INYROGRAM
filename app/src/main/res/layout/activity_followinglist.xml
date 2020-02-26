@@ -15,6 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text = "뒤로가기"
+            android:background="#00111111"
+
             android:id = "@+id/back"/>
 
         <TextView

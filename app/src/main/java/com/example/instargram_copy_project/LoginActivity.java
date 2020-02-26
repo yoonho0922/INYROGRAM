@@ -66,8 +66,8 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startToast("로그인 성공");
-                            Intent intent= new Intent(LoginActivity.this,MainActivity.class);
+                            startToast("로그인 성공");//로그인 성공 시 홈으로 이동
+                            Intent intent= new Intent(LoginActivity.this,HomeActivity.class);
                             startActivity(intent);
 
                         } else {
@@ -91,12 +91,8 @@ public class LoginActivity extends AppCompatActivity {
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             FirebaseAuth.getInstance().signOut();
             startToast("로그아웃 했습니다.");
-            Intent intent= new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(intent);
+
         }
     }
-    private void startMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
+
 }

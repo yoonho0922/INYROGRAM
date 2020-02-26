@@ -35,7 +35,7 @@
             android:id="@+id/cancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="#00FFFFFF"
             android:fontFamily="@font/antipastopropextraboldtrial"
             android:text="BACK"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +50,7 @@
             android:id="@+id/finishBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="#00FFFFFF"
             android:fontFamily="@font/antipastopropextraboldtrial"
             android:text="DONE"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,15 +86,16 @@
             android:id="@+id/profileEditBtn"
             android:layout_width="129dp"
             android:layout_height="26dp"
-            android:background="#FFFFFF"
+            android:background="#00FFFFFF"
             android:fontFamily="@font/antipastopropextraboldtrial"
             android:gravity="center_horizontal"
             android:text="change"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.531"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.625" />
+            app:layout_constraintVertical_bias="0.707" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

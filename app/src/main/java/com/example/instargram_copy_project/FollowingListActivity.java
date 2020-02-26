@@ -41,6 +41,7 @@ public class FollowingListActivity extends AppCompatActivity {
     Button toggleButton4;
     Button toggleButton5;
     String msg;
+    Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class FollowingListActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         final String friendUserId = getIntent().getExtras().getString("ID");
         getFrinedName(friendUserId);
+        back = findViewById(R.id.back);
         getDB(friendUserId);
         navbar();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -60,6 +62,17 @@ public class FollowingListActivity extends AppCompatActivity {
                 Intent oIntent = new Intent(FollowingListActivity.this, FriendPageActivity.class);
                 oIntent.putExtra("Friend", Friend_info);
                 startActivity(oIntent);
+
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.stay, R.anim.sliding_down);
+
+
 
             }
         });

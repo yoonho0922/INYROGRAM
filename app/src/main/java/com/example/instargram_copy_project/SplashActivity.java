@@ -1,7 +1,5 @@
 package com.example.instargram_copy_project;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +20,7 @@ public class SplashActivity extends Activity {
 
     private class splashhandler implements Runnable{
         public void run(){
-            startActivity(new Intent(getApplication(), MainActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
+            startActivity(new Intent(getApplication(), LoginActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
             SplashActivity.this.finish(); // 로딩페이지 Activity stack에서 제거
         }
     }

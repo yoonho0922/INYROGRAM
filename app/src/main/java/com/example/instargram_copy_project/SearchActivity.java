@@ -1,8 +1,5 @@
 package com.example.instargram_copy_project;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -192,6 +192,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SearchActivity.this , HomeActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -201,6 +202,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SearchActivity.this , PostingActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -210,6 +212,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SearchActivity.this , NotificationActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -219,6 +222,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SearchActivity.this , MyPageActivity.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(0, 0);
 
             }

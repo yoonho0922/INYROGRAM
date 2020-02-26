@@ -45,6 +45,7 @@ public class PostingActivity extends AppCompatActivity {
 
     Button gallery_btn;
     Button posting_btn;
+    Button cancel_btn;
     ImageView img_preview;
     ImageView img_view;
 
@@ -61,7 +62,7 @@ public class PostingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_posting);
 
         gallery_btn = findViewById(R.id.gallery_btn);
-
+        cancel_btn = findViewById(R.id.cancelBtn);
         posting_btn = findViewById(R.id.posting_btn);
         img_preview = findViewById(R.id.img_preview);
         img_view = findViewById(R.id.img_view);
@@ -77,7 +78,15 @@ public class PostingActivity extends AppCompatActivity {
             }
         });
 
-
+        cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostingActivity.this , HomeActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+            }
+        });
 
         posting_btn.setOnClickListener(new View.OnClickListener() {
             @Override

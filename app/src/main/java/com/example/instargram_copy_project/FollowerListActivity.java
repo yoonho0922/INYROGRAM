@@ -3,8 +3,6 @@ package com.example.instargram_copy_project;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,7 +43,7 @@ public class FollowerListActivity extends AppCompatActivity {
     Button toggleButton3;
     Button toggleButton4;
     Button toggleButton5;
-
+    Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +53,7 @@ public class FollowerListActivity extends AppCompatActivity {
         getFrinedName(friendUserId);
         msearch_edit = findViewById(R.id.search_edit);
         listView = findViewById(R.id.listView);
+        back = findViewById(R.id.back);
         getDB(friendUserId);
         navbar();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -66,6 +65,17 @@ public class FollowerListActivity extends AppCompatActivity {
                 Intent oIntent = new Intent(FollowerListActivity.this, FriendPageActivity.class);
                 oIntent.putExtra("Friend", Friend_info);
                 startActivity(oIntent);
+
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.stay, R.anim.sliding_down);
+
+
 
             }
         });

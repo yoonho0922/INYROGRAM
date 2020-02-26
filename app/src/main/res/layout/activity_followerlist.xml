@@ -14,6 +14,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="#00111111"
             android:text = "뒤로가기"
             android:id = "@+id/back"/>
 
@@ -22,11 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginLeft="60dp"
+            android:fontFamily="@font/antipastopropextraboldtrial"
+            android:gravity="center"
             android:text="unknown"
-            android:textSize="25dp"
-            android:fontFamily="@font/antipastopropextraboldtrial"/>
+            android:textSize="25dp" />
     </LinearLayout>
 
     <LinearLayout

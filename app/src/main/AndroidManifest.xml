@@ -40,7 +40,6 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".PrivatePostActivity"/>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".FriendPageActivity" />
         <activity android:name=".SearchActivity1" />
         <activity android:name=".SearchActivity2" />

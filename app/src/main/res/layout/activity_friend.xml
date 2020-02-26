@@ -153,17 +153,24 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.801">
+
                     <Button
+                        android:id="@+id/following"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text = "팔로잉"
-                        android:id ="@+id/following"/>
+                        android:background="@drawable/round_corner_black"
+                        android:fontFamily="@font/thick_font"
+                        android:text="팔로우 취소"
+                        android:textColor="#9C111111" />
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text = "메세지"
+                        android:background="@drawable/round_corner_black"
+                        android:fontFamily="@font/thick_font"
+                        android:textColor="#9C111111"
                         android:id = "@+id/message"
                         />
                 </LinearLayout>
