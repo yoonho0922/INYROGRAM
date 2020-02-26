@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdapterActivity"></activity>
+        <activity android:name=".MyPageAdapterActivity"></activity>
+        <activity android:name=".AdapterActivity" />
         <activity android:name=".UserPageActivity" />
         <activity android:name=".GlideActivity" />
         <activity
@@ -41,9 +42,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".FriendPageActivity" />
         <activity android:name=".SearchActivity1" />
-        <activity android:name=".SearchActivity2"/>
-        <activity android:name=".FollowerListActivity"/>
-        <activity android:name=".FollowingListActivity"/>
+        <activity android:name=".SearchActivity2" />
+        <activity android:name=".FollowerListActivity" />
+        <activity android:name=".FollowingListActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
