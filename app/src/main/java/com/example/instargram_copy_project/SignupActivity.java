@@ -50,8 +50,8 @@ public class SignupActivity extends AppCompatActivity {
                     Intent intent_profile = new Intent(SignupActivity.this, InitProfileEditActivity.class);
                     boolean loginSuccess = signUp(); // 회원가입 함수 실행
                     //가입조건이 충족됐을 때 프로필 수정 화면으로 넘어가는 조건이 되어야함
-                 // if(loginSuccess == true)
-                   //     startActivity(intent_profile);
+                 if(loginSuccess == true)
+                       startActivity(intent_profile);
                     break;
                 case R.id.login_button1:
                     startLoginActivity(); // 로그인 창으로 간다

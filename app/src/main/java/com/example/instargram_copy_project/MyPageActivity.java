@@ -106,7 +106,7 @@ public class MyPageActivity extends AppCompatActivity {
         });
 
 
-        //getProfileImage();
+        getProfileImage();
         getName();
         getUserName();
         getWebsiteName();
@@ -126,7 +126,15 @@ public class MyPageActivity extends AppCompatActivity {
                 String profileImage = document.getString("profile_image");
                 //프사 저장 안됐을 경우
                 if(profileImage == ""){
-                    return;
+                    FirebaseStorage storage = FirebaseStorage.getInstance("gs://inyrogram.appspot.com");
+                    StorageReference storageRef = storage.getReference();
+                    StorageReference pathReference = storageRef.child("profile_image/unknownImg.png");
+                    pathReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            Glide.with(MyPageActivity.this).load(task.getResult()).into(imageView);
+                        }
+                    });
                 }
 
                 //DB에서 사진 가져와서 이미지 넣기
