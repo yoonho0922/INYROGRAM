@@ -24,9 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:fontFamily="@font/thick_font"
-            android:textColor="#9C111111"
-            android:text="프로필 편집"
+            android:text="Edit Profile"
+            android:fontFamily="@font/antipastopropextraboldtrial"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,10 +35,9 @@
             android:id="@+id/cancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:fontFamily="@font/thick_font"
-            android:textColor="#9C111111"
-            android:text="취소"
+            android:background="#FFFFFF"
+            android:fontFamily="@font/antipastopropextraboldtrial"
+            android:text="BACK"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -52,10 +50,9 @@
             android:id="@+id/finishBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:fontFamily="@font/thick_font"
-            android:textColor="#9C111111"
-            android:text="완료"
+            android:background="#FFFFFF"
+            android:fontFamily="@font/antipastopropextraboldtrial"
+            android:text="DONE"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -89,16 +86,15 @@
             android:id="@+id/profileEditBtn"
             android:layout_width="129dp"
             android:layout_height="26dp"
-            android:fontFamily="@font/thick_font"
-            android:textColor="#9C111111"
-            android:background="@drawable/round_corner"
-            android:text="프로필 사진 바꾸기"
+            android:background="#FFFFFF"
+            android:fontFamily="@font/antipastopropextraboldtrial"
+            android:gravity="center_horizontal"
+            android:text="change"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.535"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.654" />
+            app:layout_constraintVertical_bias="0.625" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,8 +107,6 @@
             android:id="@+id/textView7"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:fontFamily="@font/thick_font"
-            android:textColor="#9C111111"
             android:text="이름"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -127,8 +121,6 @@
             android:layout_height="40dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:fontFamily="@font/thick_font"
-
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -140,8 +132,6 @@
             android:layout_height="40dp"
             android:layout_marginTop="40dp"
             android:ems="10"
-            android:fontFamily="@font/thick_font"
-
             android:inputType="textPersonName"
             app:layout_constraintHorizontal_bias="0.99"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -152,8 +142,6 @@
             android:id="@+id/website"
             android:layout_width="310dp"
             android:layout_height="40dp"
-            android:fontFamily="@font/thick_font"
-
             android:layout_marginTop="80dp"
             android:ems="10"
             android:inputType="textPersonName"
@@ -169,8 +157,6 @@
             android:layout_marginTop="120dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:fontFamily="@font/thick_font"
-
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -180,8 +166,6 @@
             android:id="@+id/textView13"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:fontFamily="@font/thick_font"
-            android:textColor="#9C111111"
             android:text="사용자 이름"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -194,8 +178,6 @@
             android:id="@+id/textView14"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:fontFamily="@font/thick_font"
-            android:textColor="#9C111111"
             android:text="웹사이트"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -206,8 +188,6 @@
 
         <TextView
             android:id="@+id/textView15"
-            android:fontFamily="@font/thick_font"
-            android:textColor="#9C111111"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:text="소개"
@@ -218,6 +198,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.264" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </LinearLayout>

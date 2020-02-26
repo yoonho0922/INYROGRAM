@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/pstlgreen">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -24,14 +25,17 @@
             android:gravity="center"
             android:layout_marginLeft="60dp"
             android:text="unknown"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:fontFamily="@font/antipastopropextraboldtrial"/>
     </LinearLayout>
 
     <LinearLayout
+        android:background="@drawable/pstlgreen"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:clickable="true"
-        android:weightSum="10">
+        android:weightSum="10"
+        >
 
         <TextView
             android:layout_width="match_parent"

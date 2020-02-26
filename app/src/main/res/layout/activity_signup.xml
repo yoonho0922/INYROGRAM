@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:fontFamily="@font/antipastopropextraboldtrial"
             android:hint="Email"
             android:id = "@+id/idsignup"
 
@@ -42,7 +43,7 @@
             android:layout_margin="20dp"
             android:id = "@+id/passwordsignup"
             android:inputType="textPassword"
-
+            android:fontFamily="@font/antipastopropextraboldtrial"
             android:hint="Password"
             android:textSize="25dp" />
 
@@ -51,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:hint="Confirm password"
+            android:fontFamily="@font/antipastopropextraboldtrial"
             android:inputType="textPassword"
 
             android:id = "@+id/repasswordsignup"
@@ -69,8 +71,8 @@
                 android:backgroundTint="#FDFDFD"
                 android:textColor="#9C111111"
 
-                android:text="가입"
-                android:fontFamily="@font/thick_font"
+                android:text="sign up"
+                android:fontFamily="@font/antipastopropextraboldtrial"
                 android:background="@drawable/round_corner"
 
                 android:textAlignment="center"
@@ -89,7 +91,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/thick_font"
                 android:background="@drawable/round_corner"
-                android:text="로그인"
+                android:text="LogIn"
                 android:textAlignment="center"
                 android:id = "@+id/login_button1"
                 android:textSize="30dp" />
