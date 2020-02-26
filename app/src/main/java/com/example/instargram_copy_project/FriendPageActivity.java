@@ -215,12 +215,12 @@ public class FriendPageActivity  extends AppCompatActivity {
             }
         });
     }
-    public void aramfollowing(String friendUserId){//팔로잉한 상대 친구에게 알람 가도록 설정
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Map<String, Integer> friend_profile = new HashMap<>();
-        friend_profile.put("followset",1); //팔로우 안했을때
-        db.collection("Aram").document(friendUserId).collection("friends")
+    public void aramfollowing(final String friendUserId){//팔로잉한 상대 친구에게 알람 가도록 설정
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final Map<String,String> friend_profile = new HashMap<>();
+        friend_profile.put("set","1");
+        db.collection("Aram").document(friendUserId).collection("FollowAram")
                 .document(user.getUid()).set(friend_profile, SetOptions.merge());
     }
     public void follower(String friendUserId) {//팔로우 정보
