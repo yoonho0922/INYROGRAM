@@ -38,6 +38,7 @@
         <activity android:name=".PostingActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".HomeActivity" />
+        <activity android:name=".PrivatePostActivity"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".FriendPageActivity" />
