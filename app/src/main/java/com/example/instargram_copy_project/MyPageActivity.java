@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -71,6 +72,19 @@ public class MyPageActivity extends AppCompatActivity {
         followingtv=findViewById(R.id.textView12);
 
         getDB();
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String, String> selection = (Map<String, String>) parent.getItemAtPosition(position);
+                String doc_info = selection.get("docId");
+                startToast(doc_info);
+
+                //Intent oIntent = new Intent(MyPageActivity.this, PostPrivate.class);
+                //oIntent.putExtra("Friend",Friend_info);
+                //startActivity(oIntent);
+
+            }
+        });
 
 
         navbar();
@@ -140,7 +154,9 @@ public class MyPageActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             HashMap<String, String> map = new HashMap<String, String>();
                             String fileName = document.getString("fileName");
+                            String docId = document.getId();
                             map.put("fileName", fileName);
+                            map.put("docId",docId);
                             items.add(map);
                         }
                         gridView = findViewById(R.id.gridView);
