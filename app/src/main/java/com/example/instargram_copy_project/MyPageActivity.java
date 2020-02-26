@@ -70,6 +70,7 @@ public class MyPageActivity extends AppCompatActivity {
         follower=findViewById(R.id.textView8);
         followertv=findViewById(R.id.textView11);
         followingtv=findViewById(R.id.textView12);
+        gridView = findViewById(R.id.gridView);
 
         getDB();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

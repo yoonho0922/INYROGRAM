@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,12 +43,14 @@ public class FriendPageActivity  extends AppCompatActivity {
     TextView followertv1;
     TextView followingtv;
     TextView followingtv1;
+    GridView gridView;
     TextView postingtv;
     Button following;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView user_name;
     Button profileEditBtn;
+    ArrayList items;
     TextView name_profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class FriendPageActivity  extends AppCompatActivity {
         followertv1 = findViewById(R.id.textView11);
         followingtv1 = findViewById(R.id.textView12);
         followertv = findViewById(R.id.textView8);
+        gridView = findViewById(R.id.gridView);
         final String friendUserId = getIntent().getExtras().getString("Friend");
         Log.d(this.getClass().getName(),"friend로그10"+friendUserId);
         getFrinedName(friendUserId);
@@ -67,6 +72,7 @@ public class FriendPageActivity  extends AppCompatActivity {
         showFollowing(friendUserId);
         showPosting(friendUserId);
         showUnfollowing(friendUserId);
+        getDB(friendUserId);
         following.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +122,17 @@ public class FriendPageActivity  extends AppCompatActivity {
                 }
 
         });
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String, String> selection = (Map<String, String>) parent.getItemAtPosition(position);
+                String doc_info = selection.get("docId");
+                Intent oIntent = new Intent(FriendPageActivity.this, PrivatePostActivity.class);
+                oIntent.putExtra("Friend",doc_info);
+                startActivity(oIntent);
+
+            }
+        });
         followertv.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -149,9 +166,33 @@ public class FriendPageActivity  extends AppCompatActivity {
             }
         });
     }
+    public void getDB(String friend_info) {
+        items = new ArrayList<Map>();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //user의 정보를 사용할것임
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Post").document(friend_info).collection("privatePost")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            HashMap<String, String> map = new HashMap<String, String>();
+                            String fileName = document.getString("fileName");
+                            String docId = document.getId();
+                            map.put("fileName", fileName);
+                            map.put("docId", docId);
+                            items.add(map);
+                        }
+                        gridView = findViewById(R.id.gridView);
+                        MyPageAdapterActivity customAdapter = new MyPageAdapterActivity(items);
+                        gridView.setAdapter(customAdapter);
+
+                    }
+                });//db.collection
+    }
 
 
-    public String getFriendUserId(String friend_info){ //검색해서 누른 유저의 id를 얻음.
+        public String getFriendUserId(String friend_info){ //검색해서 누른 유저의 id를 얻음.
 
         StringTokenizer tokens = new StringTokenizer(friend_info, "userId=" );
         for( int x = 1; tokens.hasMoreElements(); x++ )
