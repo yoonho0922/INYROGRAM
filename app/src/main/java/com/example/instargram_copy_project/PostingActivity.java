@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -182,6 +183,7 @@ public class PostingActivity extends AppCompatActivity {
         post.put("fileName", fileName);
         post.put("place", place);
         post.put("content", content);
+        post.put("time" , Timestamp.now().toString());
 
         DocumentReference postDoc = db.collection("Post").document(user.getUid()).collection("privatePost").document();
         final String myId = postDoc.getId();
