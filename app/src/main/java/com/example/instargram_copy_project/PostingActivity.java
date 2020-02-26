@@ -205,12 +205,12 @@ public class PostingActivity extends AppCompatActivity {
                     }
                 });
 
-//        startToast(postDoc.toString() + "업로드 성공!");
+    startToast(postDoc.toString() + "업로드 성공!");
 
         //홈 화면으로 이동
         Intent intent = new Intent(PostingActivity.this, HomeActivity.class);
         intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
-       // startActivity(intent);
+        startActivity(intent);
         finish();
     }
 
