@@ -2,125 +2,170 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PostingTextActivity"
-    android:orientation="vertical">
+    tools:context=".PostingActivity"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
+        android:background="@drawable/border_layout_under"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="@drawable/border_layout_under">
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/thick_font"
+            android:gravity="center_horizontal"
             android:text="새 게시물"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="40dp"
-            android:textSize="25dp"
-            />
+            android:textColor="#9C111111"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:fontFamily="@font/thick_font"
+            android:textColor="#9C111111"
+            android:text="취소"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/posting_btn"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="공유" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:fontFamily="@font/thick_font"
+            android:text="공유"
+            android:textColor="#9C111111"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="MissingConstraints" />
 
-    <LinearLayout
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
+        android:layout_height="135dp"
+        android:background="@drawable/border_layout_under">
 
         <ImageView
             android:id="@+id/img_preview"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="100dp"
+            android:layout_height="105dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/yoodang" />
+            android:src="@drawable/yoodang"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.506" />
 
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="271dp"
+            android:layout_height="63dp"
+            android:layout_gravity="top"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="@font/thick_font"
+            android:hint="문구 입력..."
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.208" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="152dp"
+        android:background="@drawable/border_layout_under">
 
         <EditText
             android:id="@+id/place"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="15dp"
-            android:textSize="15dp"
-            android:hint="위치 입력..." />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-
-        <EditText
-            android:id="@+id/content"
-            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="top"
             android:layout_marginHorizontal="15dp"
-            android:hint="문구 입력..."
-            android:textSize="15dp" />
-    </LinearLayout>
+            android:fontFamily="@font/thick_font"
+            android:hint="위치 입력..."
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.551"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.142" />
 
+        <Button
+            android:id="@+id/gallery_btn"
+            android:layout_width="380dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_corner_black"
+            android:fontFamily="@font/thick_font"
+            android:text="갤러리"
+            android:textColor="#9C111111"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.72" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <Button
-                android:id="@+id/gallery_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="15dp"
-                android:layout_weight="1"
-                android:text="갤러리" />
-
-            <Button
-                android:id="@+id/camera_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="15dp"
-                android:layout_weight="1"
-                android:text="카메라" />
-
-        </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="403dp"
+        android:layout_height="431dp">
 
         <ImageView
             android:id="@+id/img_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="354dp"
+            android:layout_height="361dp"
             android:layout_margin="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/yoodang" />
-
-    </LinearLayout>
+            android:src="@drawable/yoodang"
+            android:foregroundGravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.438" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

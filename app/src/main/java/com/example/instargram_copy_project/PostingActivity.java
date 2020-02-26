@@ -1,8 +1,5 @@
 package com.example.instargram_copy_project;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,7 +24,6 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,7 +35,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +44,6 @@ public class PostingActivity extends AppCompatActivity {
     private static final String TAG = "MemberInfoSetting";
 
     Button gallery_btn;
-    Button camera_btn;
     Button posting_btn;
     ImageView img_preview;
     ImageView img_view;
@@ -64,7 +61,7 @@ public class PostingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_posting);
 
         gallery_btn = findViewById(R.id.gallery_btn);
-        camera_btn = findViewById(R.id.camera_btn);
+
         posting_btn = findViewById(R.id.posting_btn);
         img_preview = findViewById(R.id.img_preview);
         img_view = findViewById(R.id.img_view);
@@ -80,12 +77,7 @@ public class PostingActivity extends AppCompatActivity {
             }
         });
 
-        camera_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startToast("카메라 버튼");
-            }
-        });
+
 
         posting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
