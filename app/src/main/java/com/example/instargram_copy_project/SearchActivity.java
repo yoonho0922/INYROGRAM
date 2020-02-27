@@ -133,16 +133,17 @@ public class SearchActivity extends AppCompatActivity {
                 Log.d(this.getClass().getName(),"로그10"+((SearchCustomDTO)adapter.getItem(position)).getIntro());
 
                 // new Intent(현재 Activity의 Context, 시작할 Activity 클래스)
-                Intent intent = new Intent(SearchActivity.this, UserPageActivity.class);
+                Intent intent = new Intent(SearchActivity.this, FriendPageActivity.class);
                 // putExtra(key, value)
                 if(profileImage!=""){
                     intent.putExtra("profileImage", profileImage);
                 }
-                intent.putExtra("intro", intro);
-                intent.putExtra("name", name);
-                intent.putExtra("userName", userName);
-                intent.putExtra("website", website);
-                intent.putExtra("userUID", userUID);
+//                intent.putExtra("intro", intro);
+//                intent.putExtra("name", name);
+//                intent.putExtra("userName", userName);
+//                intent.putExtra("website", website);
+//                intent.putExtra("userUID", userUID);
+                intent.putExtra("Friend", userUID);
 
                 Log.d(this.getClass().getName(),"로그11"+intent.getStringExtra("intro"));
                 Log.d(this.getClass().getName(),"로그11"+intent.getIntExtra("imgRes", 0));
