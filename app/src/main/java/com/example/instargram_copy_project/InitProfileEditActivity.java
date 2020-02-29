@@ -61,6 +61,8 @@ public class InitProfileEditActivity extends AppCompatActivity {
         profileEditBtn = findViewById(R.id.profileEditBtn);
         finishBtn = (Button)findViewById(R.id.finishBtn);
         name = (EditText)findViewById(R.id.name);
+        imageView = findViewById(R.id.imageView);
+
 
         profileEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,13 +83,13 @@ public class InitProfileEditActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MyPageActivity.class);
+                Intent intent = new Intent(getApplicationContext(),LoadingActivity.class);
                 intent.putExtra(" ", name.getText().toString());
                 proFile();
+                uploadFile();
                 startActivity(intent);
-
-
-
+                finish();
+                overridePendingTransition(R.anim.stay, R.anim.sliding_down);
             }
         });
     }
@@ -151,9 +153,8 @@ public class InitProfileEditActivity extends AppCompatActivity {
         if (filePath != null) {
             //업로드 진행 Dialog 보이기
             final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("업로드중...");
-            progressDialog.show();
-            imageView = findViewById(R.id.imageView);
+//            progressDialog.setTitle("업로드중...");
+//            progressDialog.show();
 
             //storage
             FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -179,7 +180,7 @@ public class InitProfileEditActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+//                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                             Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -187,7 +188,7 @@ public class InitProfileEditActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
+//                            progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
                         }
                     })
