@@ -103,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this , SearchActivity.class);
                 startActivity(intent);
-                finish();
+//                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -113,7 +113,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this , PostingActivity.class);
                 startActivity(intent);
-                finish();
+//                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -123,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this , NotificationActivity.class);
                 startActivity(intent);
-                finish();
+//                finish();
                 overridePendingTransition(0, 0);
 
             }
@@ -133,7 +133,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this , MyPageActivity.class);
                 startActivity(intent);
-                finish();
+//                finish();
                 overridePendingTransition(0, 0);
 
             }
