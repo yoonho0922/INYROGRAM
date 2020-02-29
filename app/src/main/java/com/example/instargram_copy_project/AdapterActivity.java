@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -81,7 +82,7 @@ public class AdapterActivity extends BaseAdapter {
                     userNameUnder.setText(document.getString("userName"));
 
                     //프로필 사진
-                    String profileImage = document.getString("profile_image");
+                    final String profileImage = document.getString("profile_image");
                     if(profileImage != "") {
                         FirebaseStorage.getInstance().getReference().child(profileImage).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                             @Override

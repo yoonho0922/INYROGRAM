@@ -142,15 +142,15 @@ public class PostingActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                            startToast("파일 업로드 완료!");
+//                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                            startToast("파일 업로드 완료!"); // 2. HomeActivity에서 뜸
                         }
                     })
                     //실패시
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
+//                            progressDialog.dismiss();
                             startToast("파일 업로드 실패!");
                         }
                     })
@@ -206,10 +206,10 @@ public class PostingActivity extends AppCompatActivity {
                     }
                 });
 
-    startToast(postDoc.toString() + "업로드 성공!");
+    startToast(postDoc.toString() + "업로드 성공!"); // 1. LoadingAcvitivy에서 뜸
 
         //홈 화면으로 이동
-        Intent intent = new Intent(PostingActivity.this, HomeActivity.class);
+        Intent intent = new Intent(PostingActivity.this, LoadingActivity.class);
         intent.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();

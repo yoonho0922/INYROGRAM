@@ -93,7 +93,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MyPageActivity.class);
+                Intent intent = new Intent(getApplicationContext(),LoadingActivity.class);
                 intent.putExtra(" ", name.getText().toString());
                 proFile();
                 uploadFile();
@@ -279,7 +279,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             db.collection("Profile").document(user.getUid()) //userid에 데이터저장
                                     .set(data, SetOptions.merge());
-                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+//                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                             Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -287,7 +287,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
+//                            progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
                         }
                     })

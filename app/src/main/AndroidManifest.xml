@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_instalogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyPageAdapterActivity"></activity>
+        <activity android:name=".LoadingActivity"></activity>
+        <activity android:name=".MyPageAdapterActivity" />
         <activity android:name=".AdapterActivity" />
         <activity android:name=".UserPageActivity" />
         <activity android:name=".GlideActivity" />
@@ -38,7 +39,7 @@
         <activity android:name=".PostingActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".PrivatePostActivity"/>
+        <activity android:name=".PrivatePostActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".FriendPageActivity" />
         <activity android:name=".SearchActivity1" />

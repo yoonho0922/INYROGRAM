@@ -54,34 +54,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         getDB();
         navbar();
-
-//        //// 리스트뷰 안에 내용 - 배열에 정보 넣기 ////
-//        int i = 0;
-//        while (i < user_id.length) {
-//            HashMap<String, Object> map = new HashMap<>();
-//
-//            map.put("img", user_img[i]); // 프로필 사진
-//            map.put("id", user_id[i]); // 사용자 ID
-//            map.put("place", user_place[i]); // 장소
-//            map.put("posting_picture", posting_picture[i]); // 포스팅 사진
-//            map.put("posting", user_posting[i]); // 글 내용
-//            map.put("like", like[i]); // 좋아요 개수 (일단 그냥 넣어본 것임)
-//
-//
-//            list.add(map);
-//            i++;
-//        }
-
-        //// 리스트뷰 안에 내용 - key와 view의 아이디를 매핑 ////
-//        String[] keys = new String[]{"img", "id", "place", "posting_picture", "id", "posting", "like"};
-//        int[] ids = new int[]{R.id.picture_profile,R.id.idtextView_up,R.id.placetextView,R.id.picture_posting,R.id.idtextView_under,R.id.postingtextView,R.id.liketextView};
-//
-//        listView = findViewById(R.id.listView);
-//
-//        SimpleAdapter customAdapter = new SimpleAdapter(this, list, R.layout.home_custom_view, keys, ids);
-//        listView.setAdapter(customAdapter);
-
-
     }
 
     public void getDB(){
@@ -109,7 +81,6 @@ public class HomeActivity extends AppCompatActivity {
                                 items.add(map);
 
                             }
-//                            goMain(items);
 
                         listView = findViewById(R.id.listView);
 
@@ -118,32 +89,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     }
                 });//db.collection END
-
-
-
-
-
     }
-
-    public void goMain(ArrayList items){
-//        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-//        StorageReference storageReference = firebaseStorage.getReference().child("fileName"); // DB에서 이름 불러와서 여기에다 "images/" 붙여서 넣으면 됨
-//        storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Uri> task) {
-//                ImageView imageView = findViewById(R.id.picture_posting);
-////                Glide.with(HomeActivity.this).load(task).into(imageView);
-//            }
-//        });
-//        String[] keys = new String[]{"userUID", "place", "userUID", "content", "content"};
-//        int[] ids = new int[]{R.id.idtextView_up,R.id.placetextView,R.id.idtextView_under,R.id.postingtextView,R.id.liketextView};
-
-//        listView = findViewById(R.id.listView);
-//
-//        AdapterActivity customAdapter = new AdapterActivity(items);
-//        listView.setAdapter(customAdapter);
-    }
-
 
     public void navbar(){
         toggleButton2 = findViewById(R.id.toggleButton2);
