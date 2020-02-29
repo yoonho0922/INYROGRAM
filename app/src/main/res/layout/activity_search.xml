@@ -16,9 +16,12 @@
         android:weightSum="10">
 
         <ImageView
-            android:layout_width="59dp"
-            android:layout_height="match_parent"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
             android:padding="5dp"
             android:src="@drawable/icon_search" />
