@@ -4,7 +4,10 @@
 
 
 ![이미지](./app_explain/1.jpeg)
-![](./app_explain/1.jpeg =60x40)
+![이미지](./app_explain/1.jpeg = 100x20)
 ![이미지](./app_explain/2.jpeg)
+![이미지](./app_explain/2.jpeg = 100x20)
 ![이미지](./app_explain/3.jpeg)
+![이미지](./app_explain/3.jpeg = 100x20)
 ![이미지](./app_explain/4.jpeg)
+![이미지](./app_explain/4.jpeg = 100x20)
