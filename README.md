@@ -2,8 +2,9 @@
 ### 안드로이드 기반, DB & Sever : Firebase Firestore
 
 
-![이미지](./app_explain/1.jpeg = 100x20)
+
 ![이미지](./app_explain/1.jpeg)
+![이미지](./app_explain/1.jpeg =100x20)
 ![이미지](./app_explain/2.jpeg)
 ![이미지](./app_explain/3.jpeg)
 ![이미지](./app_explain/4.jpeg)
