@@ -11,7 +11,11 @@ Android Studio를 기반으로 개발한 인스타그램 카피 앱
 <br/>
 
 ## Application Sample
-<p align="center"><img src="/app_explain/1.jpeg" width="20%" height="20%"></p>
-<p align="center"><img src="/app_explain/2.png" width="20%" height="20%"></p>
-<p align="center"><img src="/app_explain/3.jpeg" width="20%" height="20%"></p>
-<p align="center"><img src="/app_explain/4.jpeg" width="20%" height="20%"></p>
+<div align="center">
+ <span align="center"><img src="/app_explain/1.jpeg" width="20%" height="20%"></span>
+ <span  align="center"><img src="/app_explain/2.png" width="20%" height="20%"></span>
+ <br>
+ <span align="center"><img src="/app_explain/3.jpeg" width="20%" height="20%"></span>
+ <span align="center"><img src="/app_explain/4.jpeg" width="20%" height="20%"></span>
+</div>
+
